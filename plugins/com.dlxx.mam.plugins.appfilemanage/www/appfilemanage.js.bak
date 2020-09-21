@@ -1,0 +1,60 @@
+// fengxf added begin: 20140317
+cordova.define("org.apache.cordova.appfilemanage", function(require,exports,module){
+
+    var exec = require('cordova/exec');
+
+    module.exports = {
+        /** 
+		 * 一共5个参数 
+		   第一个 :成功会掉 
+		   第二个 :失败回调 
+		   第三个 :将要调用的类的配置名字(在config.xml中配置 稍后在下面会讲解) 
+		   第四个 :调用的方法名(一个类里可能有多个方法 靠这个参数区分) 
+		   第五个 :传递的参数  以json的格式 
+
+
+        },
+		 */  
+        open: function() {			 
+            console.log("cordovajs      open");
+            exec(null,null,"appfilemanage","open",[]);
+        }, 
+		getFileInfo: function(successCallback,appcode) {
+			console.log("cordovajs      getFileInfo");
+			exec(successCallback,null,"appfilemanage","getFileInfo",[appcode]);
+        },
+		getFileInfo2: function(successCallback,appcode) {
+		console.log("cordovajs      getFileInfo");
+		exec(successCallback,null,"appfilemanage","getFileInfo2",[appcode]);
+        },
+		fileUpload: function(successCallback,appcode) {
+			exec(successCallback,null,"appfilemanage","fileUpload",[]);
+        }, 
+		fileDownload: function(successCallback,appcode,appservercode,urlType,downloadUrl,saveUrl,filename,appname,fileSize,fileStatus,fileCode) {
+			exec(successCallback,null,"appfilemanage","fileDownload",[appcode,appservercode,urlType,downloadUrl,saveUrl,filename,appname,fileSize,fileStatus,fileCode]);
+        },
+		filePause: function(successCallback,appcode,downloadUrl) {
+		exec(successCallback,null,"appfilemanage","filePause",[appcode,downloadUrl]);
+        },
+		rmFile: function(successCallback,appcode,filename) {
+			console.log("cordovajs      rmFile");
+			exec(successCallback,null,"appfilemanage","rmFile",[appcode,filename]);
+        },
+
+		rmFiles: function(successCallback,appcode,fileCodes) {
+			console.log("cordovajs      rmFiles");
+			exec(successCallback,null,"appfilemanage","rmFiles",[appcode,fileCodes]);
+        },
+
+		decompression: function(successCallback,errorCallback,fileurl) {
+			console.log("cordovajs      decompression");
+			exec(successCallback,errorCallback,"appfilemanage","decompression",[fileurl]);
+        },
+
+		openFile: function(successCallback,errorCallback,fileurl) {
+			console.log("cordovajs      openFile");
+			exec(successCallback,errorCallback,"filebrowser","openFile",[fileurl]);
+        }
+    };
+
+});

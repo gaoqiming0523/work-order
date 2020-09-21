@@ -1,0 +1,40 @@
+.bar .icon {
+    color: white;
+}
+.bar a {
+    height: 2.2rem;
+    line-height: 2.2rem;
+    color: white;
+}
+.bar .button {
+    border: 0 !important;
+    top: 0 !important;
+}
+.list-block {
+    margin-top: 10px !important;
+}
+.item-content {
+    padding: 0 !important;
+}
+.list-block .item-title.label {
+    width: 25% !important;
+    font-size: 14px;
+}
+.list-block .item-input {
+    font-size: 14px !important;
+}
+.forget-password {
+    font-size: 12px;
+    color: #999999;
+    margin-top: 10px;
+    padding-left: .75rem;
+    box-sizing: border-box;
+}
+.get-password {
+    font-size: 12px;
+    padding-left: .75rem;
+    box-sizing: border-box;
+    margin-top: 4px;
+    color: #4589FB;
+    cursor: pointer;
+}

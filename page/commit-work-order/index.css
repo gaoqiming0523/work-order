@@ -1,0 +1,76 @@
+p {
+    margin: 0 !important;
+}
+.bar .icon {
+    color: white;
+}
+.bar a {
+    height: 2.2rem;
+    line-height: 2.2rem;
+    color: white;
+}
+.bar .button {
+    border: 0 !important;
+    top: 0 !important;
+}
+.work-order-list {
+    background: #fff;
+    display: flex;
+    align-self: start;
+    align-content: center;
+    align-items: center;
+    padding: 12px;
+    box-sizing: border-box;
+    position: relative;
+    margin-bottom: 10px;
+}
+.work-order-content {
+    flex: 1;
+    box-sizing: border-box;
+    padding-left: 14px;
+}
+.work-number {
+    font-size: 18px;
+    font-weight: bold;
+}
+.work-time {
+    font-size: 12px;
+    color: #999999;
+    margin-top: 4px !important;
+}
+.work-desc {
+    font-size: 14px;
+    margin-top: 4px !important;
+}
+.content-address {
+    font-size : 14px;
+}
+.work-commit {
+    height: 60px;
+    width: 80px;
+    border-radius: 6px;
+    background: #1ABC9C;
+    color: white;
+    text-align: center;
+    line-height: 60px;
+    font-size: 14px;
+    font-weight: 300;
+}
+.work-order-type {
+    width: 0;
+    height: 0;
+    border: 24px solid transparent;
+    border-left: 24px solid orange;
+    color: white;
+    position: absolute;
+    top: -24px;
+    left: -24px;
+    transform: rotate(-135deg);
+}
+.work-order-text {
+    color: white;
+    font-size: 12px;
+    position: absolute;
+    top: 2px;
+    left: 2px;
+}

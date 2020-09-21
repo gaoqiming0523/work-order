@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport"
+		content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="./index.css" />
+	<link rel="stylesheet" type="text/css" href="../../page/rest.css" />
+	<link rel="stylesheet" href=" ../../css/sm.min.css" />
+</head>
+
+<body>
+	<!-- page 容器 -->
+	<div class="page">
+		<!-- 标题栏 -->
+		<header class="bar bar-nav theme-dark">
+			<h1 class="title">个人中心</h1>
+		</header>
+
+		<!-- 工具栏 -->
+		<nav class="bar bar-tab">
+			<a class="tab-item external " href="../../index.html">
+				<span class="icon icon-menu"></span>
+				<span class="tab-label">工单</span>
+			</a>
+			<a class="tab-item external" href="../map/index.html">
+				<span class="icon icon-star"></span>
+				<span class="tab-label">地图</span>
+			</a>
+			<a class="tab-item external" href="../message/index.html">
+				<span class="icon icon-message"></span>
+				<span class="tab-label">消息</span>
+			</a>
+			<a class="tab-item external active" href="../mine/index.html">
+				<span class="icon icon-me"></span>
+				<span class="tab-label">我的</span>
+			</a>
+		</nav>
+
+		<!-- 这里是页面内容区 -->
+		<div class="content">
+			<!-- 头像及工号 -->
+			<div class="mine-image">
+				<div class="mine-icon">
+					<img src="../../images/icon.png"></img>
+				</div>
+				<p class="mine-name">张天启</p>
+				<p class="mine-number">工号：1523</p>
+			</div>
+			<div class="list-block">
+				<ul>
+					<li class="item-content item-link">
+						<div class="item-media"><i class="icon icon-app"></i></div>
+						<a href="../edit-password/index.html" style="width: 100%;display: inline-block;margin-left: .75rem;">
+							<div class="item-inner">
+								<div class="item-title" style="color: #333">修改密码</div>
+							</div>
+						</a>
+					</li>
+					<li class="item-content item-link">
+						<div class="item-media"><i class="icon icon-remove"></i></div>
+						<div class="item-inner">
+							<div class="item-title">清除缓存</div>
+						</div>
+					</li>
+					<li class="item-content item-link create-setteings">
+						<div class="item-media"><i class="icon icon-card"></i></div>
+						<div class="item-inner">
+							<div class="item-title">关于系统</div>
+						</div>
+					</li>
+					<li class="item-content item-link">
+						<div class="item-media"><i class="icon icon-settings"></i></div>
+						<div class="item-inner">
+							<div class="item-title">设置</div>
+						</div>
+					</li>
+					<li class="item-content item-link create-actions">
+						<div class="item-media"><i class="icon icon-message"></i></div>
+						<div class="item-inner">
+							<div class="item-title">新消息通知</div>
+						</div>
+					</li>
+					<li class="item-content item-link">
+						<div class="item-media"><i class="icon icon-clock"></i></div>
+						<a href="../commit-work-order/index.html" style="width: 100%;display: inline-block;margin-left: .75rem;">
+							<div class="item-inner">
+								<div class="item-title" style="color: #333">工单提交</div>
+							</div>
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</body>
+<script src="../../js/jquery/jquery-3.3.1.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="./index.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script src="../ajax.js" type="text/javascript" charset="utf-8"></script>
+<script src=" ../../js/sm.min.js" type="text/javascript"></script>
+<script src=" ../../js/sm-extend.min.js" type="text/javascript"></script>
+<script src=" ../../js/sm-city-picker.min.js" type="text/javascript"></script>
+
+</html>

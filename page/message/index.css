@@ -1,0 +1,22 @@
+.page {
+    background: #fff !important;
+}
+.list-block {
+    margin-top: 0px !important;
+}
+.list-block ul {
+    background: #efeff4 !important;
+}
+.list-block li {
+    background: #fff !important;
+}
+.item-content {
+    margin-bottom: 8px;
+}
+.item-content .item-title {
+    font-size: 12px;
+    text-overflow: ellipsis;
+}
+.item-content .icon {
+    color: red;
+}

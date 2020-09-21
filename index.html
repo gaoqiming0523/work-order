@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="./page/rest.css" />
+    <link rel="stylesheet" href=" ./css/sm.min.css" />
+    <link rel="stylesheet" href="./index.css" />
+  </head>
+  <body>
+    <!-- page 容器 -->
+    <div class="page">
+      <!-- 标题栏 -->
+      <header class="bar bar-nav theme-dark">
+        <h1 class="title">工单</h1>
+      </header>
+
+      <!-- 工具栏 -->
+      <nav class="bar bar-tab">
+        <a class="tab-item external active" href="./index.html">
+          <span class="icon icon-menu"></span>
+          <span class="tab-label">工单</span>
+        </a>
+        <a class="tab-item external" href="./page/map/index.html">
+          <span class="icon icon-star"></span>
+          <span class="tab-label">地图</span>
+        </a>
+        <a class="tab-item external" href="./page/message/index.html">
+          <span class="icon icon-message"></span>
+          <span class="tab-label">消息</span>
+        </a>
+        <a class="tab-item external" href="./page/mine/index.html">
+          <span class="icon icon-me"></span>
+          <span class="tab-label">我的</span>
+        </a>
+      </nav>
+
+      <!-- 这里是页面内容区 -->
+      <div class="content">
+        <div class="buttons-tab">
+          <a href="#tab1" class="tab-link active button"><span>代办工单</span></a>
+          <a href="#tab2" class="tab-link button"><span>在办工单</span></a>
+          <a href="#tab3" class="tab-link button"><span>已办工单</span></a>
+        </div>
+        <div class="content-block">
+          <div class="tabs">
+            <div id="tab1" class="tab active">
+              <div class="work-order">
+                <span class="work-order-icon">单</span>
+                <div class="work-order-content">
+                  <p class="work-order-title">
+                    <span class="work-order-number">NO.</span>
+                    1521585624
+                  </p>
+                  <p class="work-order-time">2020-8-12 14:10:32</p>
+                  <p class="work-order-desc">多户无电</p>
+                  <p class="work-order-map">北市区五四东路东方家园</p>
+                </div>
+                <div class="work-order-operating">
+                  <div class="work-order-status">已完成</div>
+                </div>
+              </div>
+            </div>
+            <div id="tab2" class="tab">
+              <div class="work-order">
+                <span class="work-order-icon">单</span>
+                <div class="work-order-content">
+                  <p class="work-order-title">
+                    <span class="work-order-number">NO.</span>
+                    1521585624
+                  </p>
+                  <p class="work-order-time">2020-8-12 14:10:32</p>
+                  <p class="work-order-desc">多户无电</p>
+                  <p class="work-order-map">北市区五四东路东方家园</p>
+                </div>
+                <div class="work-order-operating">
+                  <div class="work-order-status">已完成</div>
+                </div>
+              </div>
+            </div>
+            <div id="tab3" class="tab">
+              <div class="work-order">
+                <span class="work-order-icon">单</span>
+                <div class="work-order-content">
+                  <p class="work-order-title">
+                    <span class="work-order-number">NO.</span>
+                    1521585624
+                  </p>
+                  <p class="work-order-time">2020-8-12 14:10:32</p>
+                  <p class="work-order-desc">多户无电</p>
+                  <p class="work-order-map">北市区五四东路东方家园</p>
+                </div>
+                <div class="work-order-operating">
+                  <div class="work-order-status">已完成</div>
+                </div>
+			  </div>
+			  <div class="work-order">
+                <span class="work-order-icon">单</span>
+                <div class="work-order-content">
+                  <p class="work-order-title">
+                    <span class="work-order-number">NO.</span>
+                    1521585624
+                  </p>
+                  <p class="work-order-time">2020-8-12 14:10:32</p>
+                  <p class="work-order-desc">多户无电</p>
+                  <p class="work-order-map">北市区五四东路东方家园</p>
+                </div>
+                <div class="work-order-operating">
+                  <div class="work-order-status" style="background: #FD603A">超时完成</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+  <!-- <script src="./cordova2.js" type="text/javascript" charset="utf-8"></script> -->
+  <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+  <script src="./cordovaPublic.js" type="text/javascript" charset="utf-8"></script>
+  <script src="./js/jquery/jquery-3.3.1.min.js" type="text/javascript" charset="utf-8"></script>
+  <script src="./page/ajax.js" type="text/javascript" charset="utf-8"></script>
+  <script src=" ./js/sm.min.js" type="text/javascript"></script>
+  <script src=" ./js/sm-extend.min.js" type="text/javascript"></script>
+  <script src=" ./js/sm-city-picker.min.js" type="text/javascript"></script>
+</html>

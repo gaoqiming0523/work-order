@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="./index.css" />
+    <link rel="stylesheet" type="text/css" href="../../page/rest.css" />
+    <link rel="stylesheet" href=" ../../css/sm.min.css" />
+  </head>
+
+  <body>
+    <!-- page 容器 -->
+    <div class="page">
+      <!-- 标题栏 -->
+      <header class="bar bar-nav theme-dark">
+        <h1 class="title">个人中心</h1>
+      </header>
+
+      <!-- 工具栏 -->
+      <nav class="bar bar-tab">
+        <a class="tab-item external" href="../../index.html">
+          <span class="icon icon-menu"></span>
+          <span class="tab-label">工单</span>
+        </a>
+        <a class="tab-item external active" href="../map/index.html">
+          <span class="icon icon-star"></span>
+          <span class="tab-label">地图</span>
+        </a>
+        <a class="tab-item external" href="../message/index.html">
+          <span class="icon icon-message"></span>
+          <span class="tab-label">消息</span>
+        </a>
+        <a class="tab-item external" href="../mine/index.html">
+          <span class="icon icon-me"></span>
+          <span class="tab-label">我的</span>
+        </a>
+      </nav>
+
+      <!-- 这里是页面内容区 -->
+      <div class="content">
+        <!-- 头像及工号 -->
+        <div id="allmap"></div>
+      </div>
+    </div>
+  </body>
+  <script type="text/javascript" src="https://api.map.baidu.com/api?v=3.0&ak=iRga2Xe4ZYZH6lCxGYTw6ruEH20FL2GE"></script>
+  <script src="../../js/jquery/jquery-3.3.1.min.js" type="text/javascript" charset="utf-8"></script>
+  <script src="./index.js"></script>
+  <script src="../ajax.js" type="text/javascript" charset="utf-8"></script>
+  <script src=" ../../js/sm.min.js" type="text/javascript"></script>
+  <script src=" ../../js/sm-extend.min.js" type="text/javascript"></script>
+  <script src=" ../../js/sm-city-picker.min.js" type="text/javascript"></script>
+
+  <script type="text/javascript">
+    var map = new BMap.Map('allmap');
+    var point = new BMap.Point(116.404, 39.915);
+    map.centerAndZoom(point, 15);
+    // 添加带有定位的导航控件
+    var navigationControl = new BMap.NavigationControl({
+      // 靠左上角位置
+      anchor: BMAP_ANCHOR_TOP_LEFT,
+      // LARGE类型
+      type: BMAP_NAVIGATION_CONTROL_LARGE,
+      // 启用显示定位
+      enableGeolocation: true,
+    });
+    map.addControl(navigationControl);
+    function addClickHandler(label){
+		label.addEventListener("click",function(e){
+            console.log(11112231123)
+        });
+	}
+    // 编写自定义函数,创建标注
+    function addMarker(point) {
+        var marker = new BMap.Marker(point);
+        map.addOverlay(marker);
+        var label = new BMap.Label('编号：554125，当前位置信息：' + point.lat + '，' + point.lng,{offset: point});
+        addClickHandler(label);
+        marker.setLabel(label);
+    }
+  
+    // 随机向地图添加25个标注
+    var bounds = map.getBounds();
+    var sw = bounds.getSouthWest();
+    var ne = bounds.getNorthEast();
+    var lngSpan = Math.abs(sw.lng - ne.lng) || 0.3;
+    var latSpan = Math.abs(ne.lat - sw.lat) || 0.3;
+    for (var i = 0; i < 10; i++) {
+      var point = new BMap.Point(sw.lng + lngSpan * (Math.random() * 0.65), ne.lat - latSpan * (Math.random() * 0.7));
+      addMarker(point);
+     
+    }
+
+  </script>
+</html>

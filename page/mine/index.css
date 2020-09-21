@@ -1,0 +1,34 @@
+p {
+    margin: 0px !important;
+}
+.mine-image {
+    height: 160px;
+    overflow: hidden;
+    text-align: center;
+    box-sizing: border-box;
+    padding-top: 20px;
+}
+.mine-icon {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    display: inline-block;
+    overflow: hidden;
+    margin-bottom: 10px;
+}
+.mine-icon img {
+    width:  100%;
+    height: 100%;
+}
+.mine-name {
+    text-align: center;
+    font-size: 12px;
+    margin-bottom: 8px;
+}
+.mine-number {
+    text-align: center;
+    font-size: 14px;
+}
+.actions-modal-group span{
+    font-size: 14px !important;
+}
