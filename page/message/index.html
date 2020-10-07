@@ -41,7 +41,7 @@
       <div class="content">
         <div class="list-block">
           <ul>
-            <li class="item-content" v-for="item in aList" @click="fnClickMessage(item.id)">
+            <li class="item-content" v-for="(item, index) in aList" @click="fnClickMessage(item.id, index)">
               <div class="item-media"><i class="icon icon-message"></i></div>
               <div class="item-inner">
                 <div class="item-title">{{ item.content }}</div>
@@ -55,7 +55,6 @@
   </body>
   <script src="https://cdn.jsdelivr.net/npm/vue"></script>
   <script src="../../js/jquery/jquery-3.3.1.min.js" type="text/javascript" charset="utf-8"></script>
-  <script src="./index.js"></script>
   <script src="../ajax.js" type="text/javascript" charset="utf-8"></script>
   <script src=" ../../js/sm.min.js" type="text/javascript"></script>
   <script src=" ../../js/sm-extend.min.js" type="text/javascript"></script>
@@ -88,21 +87,44 @@
           // 获取未读数量
           this.fnNetRNoReadCount();
           // 初始化sorcket
-          this.fnInitSorcket();
+					this.fnInitSorcket();
+					this.fnNetRReadist();
         },
         // 获取未读数量
-        fnNetRNoReadCount() {},
+				fnNetRNoReadCount() {},
+				// 获取消息列表
+				fnNetRReadist(){
+					var token = localStorage.getItem('sToken')
+					var that = this
+					axios({
+						method:'post',
+						url:'http://121.42.233.49:7888/msg/list',
+						headers: {token: token},
+						data: {
+							current: 0,
+							size: 10000
+						}
+					})
+						.then(function (response) {
+							that.aList = response.data.data.records
+						})
+						.catch(function (error) {
+							console.log(error);
+						});
+				},
 				// 点击已读
-				fnClickMessage(id){
+				fnClickMessage(id, index){
 					console.log(id)
 					// 为给定 ID 的 user 创建请求
 					var token = localStorage.getItem('sToken')
+					var that = this
 					axios({
 						method:'get',
 						url:'http://121.42.233.49:7888/msg/read/'+id+'?msgId='+id,
 						headers: {token: token}
 					})
 						.then(function (response) {
+							that.aList[index].isRead = true
 							console.log(response);
 						})
 						.catch(function (error) {
@@ -155,7 +177,10 @@
             this.$message.error('解析失败');
 					}
 					console.log(oData)
-					this.aList = oData
+					if(oData.length){
+						navigator.vibrate = navigator.vibrate || navigator.webkitVibrate || navigator.mozVibrate || navigator.msVibrate;
+						navigator.vibrate(1000);
+					}
         },
         fnCloseSocket() {
           this.socket = null;
