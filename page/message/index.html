@@ -1,95 +1,166 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="./index.css" />
+    <link rel="stylesheet" type="text/css" href="../../page/rest.css" />
+    <link rel="stylesheet" href=" ../../css/sm.min.css" />
+  </head>
 
-<head>
-	<meta charset="UTF-8" />
-	<meta name="viewport"
-		content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
-	<title></title>
-	<link rel="stylesheet" type="text/css" href="./index.css" />
-	<link rel="stylesheet" type="text/css" href="../../page/rest.css" />
-	<link rel="stylesheet" href=" ../../css/sm.min.css" />
-</head>
+  <body>
+    <!-- page 容器 -->
+    <div class="page" id="app">
+      <!-- 标题栏 -->
+      <header class="bar bar-nav theme-dark">
+        <h1 class="title">消息中心</h1>
+      </header>
 
-<body>
-	<!-- page 容器 -->
-	<div class="page">
-		<!-- 标题栏 -->
-		<header class="bar bar-nav theme-dark">
-			<h1 class="title">消息中心</h1>
-		</header>
+      <!-- 工具栏 -->
+      <nav class="bar bar-tab">
+        <a class="tab-item external" href="../../index.html">
+          <span class="icon icon-menu"></span>
+          <span class="tab-label">工单</span>
+        </a>
+        <a class="tab-item external" href="../map/index.html">
+          <span class="icon icon-star"></span>
+          <span class="tab-label">地图</span>
+        </a>
+        <a class="tab-item external active" href="../message/index.html">
+          <span class="icon icon-message"></span>
+          <span class="tab-label">消息</span>
+        </a>
+        <a class="tab-item external" href="../mine/index.html">
+          <span class="icon icon-me"></span>
+          <span class="tab-label">我的</span>
+        </a>
+      </nav>
 
-		<!-- 工具栏 -->
-		<nav class="bar bar-tab">
-			<a class="tab-item external " href="../../index.html">
-				<span class="icon icon-menu"></span>
-				<span class="tab-label">工单</span>
-			</a>
-			<a class="tab-item external" href="../map/index.html">
-				<span class="icon icon-star"></span>
-				<span class="tab-label">地图</span>
-			</a>
-			<a class="tab-item external active" href="../message/index.html">
-				<span class="icon icon-message"></span>
-				<span class="tab-label">消息</span>
-			</a>
-			<a class="tab-item external " href="../mine/index.html">
-				<span class="icon icon-me"></span>
-				<span class="tab-label">我的</span>
-			</a>
-		</nav>
+      <!-- 这里是页面内容区 -->
+      <div class="content">
+        <div class="list-block">
+          <ul>
+            <li class="item-content" v-for="item in aList" @click="fnClickMessage(item.id)">
+              <div class="item-media"><i class="icon icon-message"></i></div>
+              <div class="item-inner">
+                <div class="item-title">{{ item.content }}</div>
+							</div>
+							<div class='red-point' v-if="!item.isRead"></div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+  <script src="../../js/jquery/jquery-3.3.1.min.js" type="text/javascript" charset="utf-8"></script>
+  <script src="./index.js"></script>
+  <script src="../ajax.js" type="text/javascript" charset="utf-8"></script>
+  <script src=" ../../js/sm.min.js" type="text/javascript"></script>
+  <script src=" ../../js/sm-extend.min.js" type="text/javascript"></script>
+	<script src=" ../../js/sm-city-picker.min.js" type="text/javascript"></script>
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
-		<!-- 这里是页面内容区 -->
-		<div class="content">
-			<div class="list-block">
-				<ul>
-					<li class="item-content">
-						<div class="item-media"><i class="icon icon-message"></i></div>
-						<div class="item-inner">
-							<div class="item-title">新增工单16482424011，请及时接单！！！</div>
-						</div>
-					</li>
-					<li class="item-content">
-						<div class="item-media"><i class="icon icon-message"></i></div>
-						<div class="item-inner">
-							<div class="item-title">新增工单16482424011，请及时接单！！！</div>
-						</div>
-					</li>
-					<li class="item-content">
-						<div class="item-media"><i class="icon icon-message"></i></div>
-						<div class="item-inner">
-							<div class="item-title">新增工单16482424011，请及时接单！！！</div>
-						</div>
-					</li>
-					<li class="item-content">
-						<div class="item-media"><i class="icon icon-message"></i></div>
-						<div class="item-inner">
-							<div class="item-title">新增工单16482424011，请及时接单！！！</div>
-						</div>
-					</li>
-					<li class="item-content">
-						<div class="item-media"><i class="icon icon-message"></i></div>
-						<div class="item-inner">
-							<div class="item-title">新增工单16482424011，请及时接单！！！</div>
-						</div>
-					</li>
-					<li class="item-content">
-						<div class="item-media"><i class="icon icon-message"></i></div>
-						<div class="item-inner">
-							<div class="item-title">新增工单16482424011，请及时接单！！！</div>
-						</div>
-					</li>
-				</ul>
-			</div>
-		</div>
-	</div>
-</body>
-<script src="./index.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/vue"></script>
-<script src="../../js/jquery/jquery-3.3.1.min.js" type="text/javascript" charset="utf-8"></script>
-<script src="../ajax.js" type="text/javascript" charset="utf-8"></script>
-<script src=" ../../js/sm.min.js" type="text/javascript"></script>
-<script src=" ../../js/sm-extend.min.js" type="text/javascript"></script>
-<script src=" ../../js/sm-city-picker.min.js" type="text/javascript"></script>
-
+  <script>
+    var app = new Vue({
+      el: '#app',
+      data() {
+        return {
+          bIsError: false,
+					nCount: 0,
+					aList: [],
+          nSocketPingInterval: null,
+          nSocketConnectionInterval: null,
+          socket: '',
+          sPath: `ws://121.42.233.49:7888/msg/socket/1000`,
+        };
+      },
+      created() {
+        this.fnInitPageData();
+      },
+      destroyed() {
+        // 销毁监听
+        this.socket.onclose = null;
+      },
+      methods: {
+        fnInitPageData() {
+          // 获取未读数量
+          this.fnNetRNoReadCount();
+          // 初始化sorcket
+          this.fnInitSorcket();
+        },
+        // 获取未读数量
+        fnNetRNoReadCount() {},
+				// 点击已读
+				fnClickMessage(id){
+					console.log(id)
+					// 为给定 ID 的 user 创建请求
+					var token = localStorage.getItem('sToken')
+					axios({
+						method:'get',
+						url:'http://121.42.233.49:7888/msg/read/'+id+'?msgId='+id,
+						headers: {token: token}
+					})
+						.then(function (response) {
+							console.log(response);
+						})
+						.catch(function (error) {
+							console.log(error);
+						});
+				},
+        // 初始化socket
+        fnInitSorcket() {
+          if (typeof WebSocket === 'undefined') {
+            this.$message.error('您的浏览器不支持socket');
+          } else {
+            // 实例化socket
+            this.socket = new WebSocket(this.sPath);
+            // 连接成功
+            this.socket.onopen = this.fnBsnConnectionSocket;
+            // 监听socket错误信息
+            this.socket.onerror = this.fnBsnSocketError;
+            // 监听socket消息
+            this.socket.onmessage = this.fnBsnGetMessage;
+            // 监听socket关闭
+            this.socket.onclose = this.fnBsnSocketError;
+          }
+        },
+        // 连接成功
+        fnBsnConnectionSocket() {
+          this.bIsError = false;
+          clearInterval(this.nSocketConnectionInterval);
+        },
+        // sorcket 报错
+        fnBsnSocketError() {
+          if (!this.bIsError) {
+            this.bIsError = true;
+            this.socket = null;
+            clearInterval(this.nSocketPingInterval);
+            this.fnBsnIntervalConnection();
+          }
+        },
+        // 失败后定时重连
+        fnBsnIntervalConnection() {
+          this.nSocketConnectionInterval = setInterval(() => {
+            this.fnInitSorcket();
+          }, 30000);
+        },
+        // 监听事件
+        fnBsnGetMessage(msg) {
+          let oData = {};
+          try {
+            oData = JSON.parse(msg.data);
+          } catch (e) {
+            this.$message.error('解析失败');
+					}
+					console.log(oData)
+					this.aList = oData
+        },
+        fnCloseSocket() {
+          this.socket = null;
+        },
+      },
+    });
+  </script>
 </html>

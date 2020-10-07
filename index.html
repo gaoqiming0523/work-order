@@ -10,7 +10,7 @@
   </head>
   <body>
     <!-- page 容器 -->
-    <div class="page">
+    <div class="page" id="app">
       <!-- 标题栏 -->
       <header class="bar bar-nav theme-dark">
         <h1 class="title">工单</h1>
@@ -124,4 +124,22 @@
   <script src=" ./js/sm.min.js" type="text/javascript"></script>
   <script src=" ./js/sm-extend.min.js" type="text/javascript"></script>
   <script src=" ./js/sm-city-picker.min.js" type="text/javascript"></script>
+
+  <script>
+    var app = new Vue({
+      el: '#app',
+      data() {
+        return {
+          account: '',
+          sPassword: ''
+        }
+      },
+      mounted() {
+        var token = localStorage.getItem('sToken')
+        if(!token) {
+          location.href = './page/login/index.html'
+        }
+      },
+    })
+  </script>
 </html>

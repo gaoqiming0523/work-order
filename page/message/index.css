@@ -1,22 +1,45 @@
 .page {
-    background: #fff !important;
+    background: #F8F8F8 !important;
 }
 .list-block {
     margin-top: 0px !important;
+    text-align: center;
 }
-.list-block ul {
-    background: #efeff4 !important;
-}
-.list-block li {
-    background: #fff !important;
-}
-.item-content {
-    margin-bottom: 8px;
-}
+
 .item-content .item-title {
     font-size: 12px;
     text-overflow: ellipsis;
 }
 .item-content .icon {
     color: red;
+}
+.item-content {
+    text-align: left;
+    margin-bottom: 8px;
+    background: white;
+    min-height: 28px !important;
+    border-radius: 10px;
+    box-shadow: 0px 6px 6px rgba(65, 66, 66, 0.2);
+    box-sizing: border-box !important;
+    margin-top: 15px !important;
+}
+.list-block ul {
+    width: 100%;
+    display: inline-block;
+    box-sizing: border-box;
+    padding: 0 10px !important;
+    background: transparent !important;
+}
+.item-content {
+    position: relative;
+}
+.red-point {
+    width: 8px;
+    height: 8px;
+    background: red;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    margin-top: -4px;
 }
