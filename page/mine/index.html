@@ -13,7 +13,7 @@
 
 <body>
 	<!-- page 容器 -->
-	<div class="page">
+	<div class="page" id="app">
 		<!-- 标题栏 -->
 		<header class="bar bar-nav theme-dark">
 			<h1 class="title">个人中心</h1>
@@ -46,8 +46,8 @@
 				<div class="mine-icon">
 					<img src="../../images/icon.png"></img>
 				</div>
-				<p class="mine-name">张天启</p>
-				<p class="mine-number">工号：1523</p>
+				<p class="mine-name">{{ oUserInfo.account }}</p>
+				<p class="mine-number">工号：{{ oUserInfo.jobNumber }}</p>
 			</div>
 			<div class="list-block">
 				<ul>
@@ -91,7 +91,7 @@
 							</div>
 						</a>
 					</li>
-					<li class="item-content create-actions">
+					<li class="item-content create-actions" @click="fnClickLogout">
 						<div class="item-media"><i class="icon icon-message"></i></div>
 						<div class="item-inner">
 							<div class="item-title">登出</div>
@@ -102,12 +102,58 @@
 		</div>
 	</div>
 </body>
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
 <script src="../../js/jquery/jquery-3.3.1.min.js" type="text/javascript" charset="utf-8"></script>
 <script src="./index.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/vue"></script>
-<script src="../ajax.js" type="text/javascript" charset="utf-8"></script>
 <script src=" ../../js/sm.min.js" type="text/javascript"></script>
 <script src=" ../../js/sm-extend.min.js" type="text/javascript"></script>
 <script src=" ../../js/sm-city-picker.min.js" type="text/javascript"></script>
-
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script>
+	var app = new Vue({
+	  el: '#app',
+	  data() {
+		  return {
+			  oUserInfo: {}
+		  }
+	  },
+	  methods: {
+		  fnNetRUserInfo() {
+				var token = localStorage.getItem('sToken')
+				var that = this
+				axios({
+					method:'post',
+					url:'http://121.42.233.49:7888/user/info',
+					headers: {token: token}
+				})
+					.then(function (response) {
+						that.oUserInfo = response.data.data
+					})
+					.catch(function (error) {
+						location.href = '../login/index.html'
+					});
+			},
+			fnClickLogout (){
+				var token = localStorage.getItem('sToken')
+				var that = this
+				axios({
+					method:'post',
+					url:'http://121.42.233.49:7888/user/info',
+					headers: {token: token}
+				})
+					.then(function (response) {
+						localStorage.removeItem('sToken')
+						location.href = '../login/index.html';
+					})
+					.catch(function (error) {
+						localStorage.removeItem('sToken')
+						location.href = '../login/index.html'
+					});
+			}
+	  },
+	  created() {
+		  this.fnNetRUserInfo()
+	  },
+	})
+</script>
 </html>

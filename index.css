@@ -26,11 +26,11 @@ p {
 }
 .work-order-content {
   padding-left: 28px;
-  margin-top: 20px;
+  margin-top: 14px;
   display: inline-block;
   width: 280px;
   box-sizing: border-box;
-  padding-bottom: 20px;
+  padding-bottom: 14px;
 }
 .work-order-number {
   font-size: 12px;
@@ -41,6 +41,46 @@ p {
   font-size: 16px;
   font-weight: bold;
   color: #343434;
+}
+.work-order-button {
+  background: #1ABC9C;
+  color: white;
+  width: 140px;
+  height: 32px;
+  text-align: center;
+  line-height: 32px;
+  border-radius: 10px 0 0 0px;
+  font-size: 14px;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  box-shadow: 0px 0px 6px 0px rgba(65, 66, 66, 0.2);;
+}
+.buttons-tab {
+  position: fixed;
+  width: 100%;
+  z-index: 99;
+}
+.work-order-time-canvas {
+  height: 60px;
+  position: absolute;
+  top: 28px;
+  right: 20px;
+  font-size: 12px;
+}
+.old-time {
+  height: 14px;
+  border-radius: 14px;
+  width: 100%;
+  background: rgba(26, 188, 156, 0.3);
+  position: relative;
+}
+.now-time {
+  position: absolute;
+  height: 14px;
+  width: 10px;
+  border-radius: 14px;
+  background:  rgba(26, 188, 156, 1);;
 }
 .work-order-time {
   font-size: 12px;

@@ -28,7 +28,7 @@ p {
     overflow: hidden;
 }
 .list-block ul li {
-    min-height: 3rem !important;
+    min-height:2.6rem !important;
 }
 
 .mine-icon {

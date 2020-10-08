@@ -109,7 +109,7 @@
 							that.aList = response.data.data.records
 						})
 						.catch(function (error) {
-							console.log(error);
+							location.href = '../login/index.html'
 						});
 				},
 				// 点击已读
@@ -125,10 +125,9 @@
 					})
 						.then(function (response) {
 							that.aList[index].isRead = true
-							console.log(response);
 						})
 						.catch(function (error) {
-							console.log(error);
+							location.href = '../login/index.html'
 						});
 				},
         // 初始化socket
