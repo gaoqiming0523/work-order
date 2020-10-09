@@ -39,202 +39,89 @@
       <!-- 这里是页面内容区 -->
       <div class="content">
         <div class="buttons-tab">
-          <a href="#tab1" class="tab-link active button"><span>代办工单</span></a>
-          <a href="#tab2" class="tab-link button"><span>在办工单</span></a>
-          <a href="#tab3" class="tab-link button"><span>已办工单</span></a>
+          <a href="#tab1" class="tab-link active button" @click="fnClickSearchList(1)"><span>代办工单</span></a>
+          <a href="#tab2" class="tab-link button" @click="fnClickSearchList(2)"><span>在办工单</span></a>
+          <a href="#tab3" class="tab-link button" @click="fnClickSearchList(5)"><span>已办工单</span></a>
         </div>
         <div style="height: 2rem"></div>
         <div class="content-block">
           <div class="tabs">
             <div id="tab1" class="tab active">
-              <div class="work-order" @click="fnClickJumpToDetail">
-                <span class="work-order-icon">单</span>
-                <div class="work-order-content" style="padding-bottom: 24px;margin-top: 24px;width:auto">
+              <div class="work-order" @click="fnClickJumpToDetail(item.id)" v-for="item in aList" :key="item.id">
+                <span class="work-order-icon" :style="item.jobType === 3 ? 'background: #4589FB' : '' "
+                  >{{ item.jobType === 1 ? '单' : item.jobType === 2 ? '多' : '中' }}</span
+                >
+                <div class="work-order-content" style="padding-bottom: 34px; margin-top: 24px; width: auto">
                   <p class="work-order-title">
                     <span class="work-order-number">NO.</span>
-                    1521585624
+                    {{ item.id }}
                   </p>
-                  <p class="work-order-time">2020-8-12 14:10:32</p>
-                  <p class="work-order-desc">东方家园小区公变，请班组及时处理</p>
-                  <p class="work-order-map">北市区五四东路东方家园</p>
+                  <p class="work-order-time">{{ item.createTime }}</p>
+                  <p class="work-order-desc">{{ item.faultName }}</p>
+                  <p class="work-order-map">{{ item.address }}</p>
                 </div>
                 <div class="work-order-time-canvas">
                   <div>距离到场剩余时间</div>
-                  <div class="old-time">
-                    <div class="now-time"></div>
+                  <div class="old-time" :style="item.isEnd ? 'background: RGBA(249, 98, 98, 0.3)': ''">
+                    <div
+                      class="now-time"
+                      :style="item.isEnd ? 'background: RGBA(249, 98, 98, 1);color: white;font-size: 12px;width: 100%;text-align: center;line-height: 14px': ''"
+                    >
+                      {{item.isEnd ? '已超时' : '' }}
+                    </div>
+                    {{ item.isEnd? '' : `item.hours +''+ item.minutes +''+ item.second` }}
                   </div>
                 </div>
-                <div class="work-order-button">
-                  接单
-                </div>
-              </div>
-              <div class="work-order" @click="fnClickJumpToDetail">
-                <span class="work-order-icon" style="background: #4589FB">中</span>
-                <div class="work-order-content" style="padding-bottom: 24px;margin-top: 24px;width:auto">
-                  <p class="work-order-title">
-                    <span class="work-order-number">NO.</span>
-                    1521585624
-                  </p>
-                  <p class="work-order-time">2020-8-12 14:10:32</p>
-                  <p class="work-order-desc">东方家园小区公变，请班组及时处理</p>
-                  <p class="work-order-map">北市区五四东路东方家园</p>
-                </div>
-                <div class="work-order-button">
-                  接单
-                </div>
-              </div>
-              <div class="work-order" @click="fnClickJumpToDetail">
-                <span class="work-order-icon">多</span>
-                <div class="work-order-content" style="padding-bottom: 24px;margin-top: 24px;width:auto">
-                  <p class="work-order-title">
-                    <span class="work-order-number">NO.</span>
-                    1521585624
-                  </p>
-                  <p class="work-order-time">2020-8-12 14:10:32</p>
-                  <p class="work-order-desc">东方家园小区公变，请班组及时处理</p>
-                  <p class="work-order-map">北市区五四东路东方家园</p>
-                </div>
-                <div class="work-order-button">
-                  接单
-                </div>
-              </div>
-              <div class="work-order" @click="fnClickJumpToDetail">
-                <span class="work-order-icon">单</span>
-                <div class="work-order-content" style="padding-bottom: 24px;margin-top: 24px;width:auto">
-                  <p class="work-order-title">
-                    <span class="work-order-number">NO.</span>
-                    1521585624
-                  </p>
-                  <p class="work-order-time">2020-8-12 14:10:32</p>
-                  <p class="work-order-desc">东方家园小区公变，请班组及时处理</p>
-                  <p class="work-order-map">北市区五四东路东方家园</p>
-                </div>
-                <div class="work-order-button">
-                  接单
-                </div>
-              </div>
-              <div class="work-order" @click="fnClickJumpToDetail">
-                <span class="work-order-icon">单</span>
-                <div class="work-order-content" style="padding-bottom: 24px;margin-top: 24px;width:auto">
-                  <p class="work-order-title">
-                    <span class="work-order-number">NO.</span>
-                    1521585624
-                  </p>
-                  <p class="work-order-time">2020-8-12 14:10:32</p>
-                  <p class="work-order-desc">东方家园小区公变，请班组及时处理</p>
-                  <p class="work-order-map">北市区五四东路东方家园</p>
-                </div>
-                <div class="work-order-button">
-                  接单
-                </div>
-              </div>
-              <div class="work-order" @click="fnClickJumpToDetail">
-                <span class="work-order-icon">单</span>
-                <div class="work-order-content" style="padding-bottom: 24px;margin-top: 24px;width:auto">
-                  <p class="work-order-title">
-                    <span class="work-order-number">NO.</span>
-                    1521585624
-                  </p>
-                  <p class="work-order-time">2020-8-12 14:10:32</p>
-                  <p class="work-order-desc">东方家园小区公变，请班组及时处理</p>
-                  <p class="work-order-map">北市区五四东路东方家园</p>
-                </div>
-                <div class="work-order-button">
-                  接单
-                </div>
-              </div>
-              <div class="work-order" @click="fnClickJumpToDetail">
-                <span class="work-order-icon">单</span>
-                <div class="work-order-content" style="padding-bottom: 24px;margin-top: 24px;width:auto">
-                  <p class="work-order-title">
-                    <span class="work-order-number">NO.</span>
-                    1521585624
-                  </p>
-                  <p class="work-order-time">2020-8-12 14:10:32</p>
-                  <p class="work-order-desc">东方家园小区公变，请班组及时处理</p>
-                  <p class="work-order-map">北市区五四东路东方家园</p>
-                </div>
-                <div class="work-order-button">
-                  接单
-                </div>
+                <div class="work-order-button">接单</div>
               </div>
             </div>
             <div id="tab2" class="tab">
-              <div class="work-order" @click="fnClickJumpToDetail">
-                <span class="work-order-icon">单</span>
-                <div class="work-order-content" style="padding-bottom: 24px;margin-top: 24px;width:auto">
+              <div class="work-order" @click="fnClickJumpToDetail(item.id)" v-for="item in aList" :key="item.id">
+                <span class="work-order-icon" :style="item.jobType === 3 ? 'background: #4589FB' : '' "
+                  >{{ item.jobType === 1 ? '单' : item.jobType === 2 ? '多' : '中' }}</span
+                >
+                <div class="work-order-content" style="padding-bottom: 34px; margin-top: 24px; width: auto">
                   <p class="work-order-title">
                     <span class="work-order-number">NO.</span>
-                    1521585624
+                    {{ item.id }}
                   </p>
-                  <p class="work-order-time">2020-8-12 14:10:32</p>
-                  <p class="work-order-desc">东方家园小区公变，请班组及时处理</p>
-                  <p class="work-order-map">北市区五四东路东方家园</p>
+                  <p class="work-order-time">{{ item.createTime }}</p>
+                  <p class="work-order-desc">{{ item.faultName }}</p>
+                  <p class="work-order-map">{{ item.address }}</p>
                 </div>
-                <div class="work-order-button">
-                  到达现场
+                <div class="work-order-time-canvas">
+                  <div>距离到场剩余时间</div>
+                  <div class="old-time" :style="item.isEnd ? 'background: RGBA(249, 98, 98, 0.3)': ''">
+                    <div
+                      class="now-time"
+                      :style="item.isEnd ? 'background: RGBA(249, 98, 98, 1);color: white;font-size: 12px;width: 100%;text-align: center;line-height: 14px': ''"
+                    >
+                      {{item.isEnd ? '已超时' : '' }}
+                    </div>
+                    {{ item.isEnd? '' : `item.hours +''+ item.minutes +''+ item.second` }}
+                  </div>
                 </div>
-              </div>
-              <div class="work-order" @click="fnClickJumpToDetail">
-                <span class="work-order-icon" style="background: #4589FB">中</span>
-                <div class="work-order-content" style="padding-bottom: 24px;margin-top: 24px;width:auto">
-                  <p class="work-order-title">
-                    <span class="work-order-number">NO.</span>
-                    1521585624
-                  </p>
-                  <p class="work-order-time">2020-8-12 14:10:32</p>
-                  <p class="work-order-desc">东方家园小区公变，请班组及时处理</p>
-                  <p class="work-order-map">北市区五四东路东方家园</p>
-                </div>
-                <div class="work-order-button" style="background: #7C7D7D;">
-                  抢修中
-                </div>
-              </div>
-              <div class="work-order" @click="fnClickJumpToDetail">
-                <span class="work-order-icon">多</span>
-                <div class="work-order-content" style="padding-bottom: 24px;margin-top: 24px;width:auto">
-                  <p class="work-order-title">
-                    <span class="work-order-number">NO.</span>
-                    1521585624
-                  </p>
-                  <p class="work-order-time">2020-8-12 14:10:32</p>
-                  <p class="work-order-desc">东方家园小区公变，请班组及时处理</p>
-                  <p class="work-order-map">北市区五四东路东方家园</p>
-                </div>
-                <div class="work-order-button">
-                  到达现场
+                <div class="work-order-button" :style="item.state === 3 ? 'background: #7C7D7D' : '' ">
+                  {{ item.state === 2 ? '到达现场' : item.state === 3 ? '抢修中': '已完成' }}
                 </div>
               </div>
             </div>
             <div id="tab3" class="tab">
-              <div class="work-order" @click="fnClickJumpToDetail">
-                <span class="work-order-icon">单</span>
+              <div class="work-order" @click="fnClickJumpToDetail(item.id)" v-for="item in aList" :key="item.id">
+                <span class="work-order-icon" :style="item.jobType === 3 ? 'background: #4589FB' : '' "
+                  >{{ item.jobType === 1 ? '单' : item.jobType === 2 ? '多' : '中' }}</span
+                >
                 <div class="work-order-content">
                   <p class="work-order-title">
                     <span class="work-order-number">NO.</span>
-                    1521585624
+                    {{ item.id }}
                   </p>
-                  <p class="work-order-time">2020-8-12 14:10:32</p>
-                  <p class="work-order-desc">多户无电</p>
-                  <p class="work-order-map">北市区五四东路东方家园</p>
+                  <p class="work-order-time">{{ item.createTime }}</p>
+                  <p class="work-order-desc">{{ item.faultName }}</p>
+                  <p class="work-order-map">{{ item.address }}</p>
                 </div>
                 <div class="work-order-operating">
                   <div class="work-order-status">已完成</div>
-                </div>
-              </div>
-              <div class="work-order" @click="fnClickJumpToDetail">
-                <span class="work-order-icon">单</span>
-                <div class="work-order-content">
-                  <p class="work-order-title">
-                    <span class="work-order-number">NO.</span>
-                    1521585624
-                  </p>
-                  <p class="work-order-time">2020-8-12 14:10:32</p>
-                  <p class="work-order-desc">多户无电</p>
-                  <p class="work-order-map">北市区五四东路东方家园</p>
-                </div>
-                <div class="work-order-operating">
-                  <div class="work-order-status" style="background: #fd603a">超时完成</div>
                 </div>
               </div>
             </div>
@@ -247,11 +134,9 @@
   <script src="https://cdn.jsdelivr.net/npm/vue"></script>
   <script src="./cordovaPublic.js" type="text/javascript" charset="utf-8"></script>
   <script src="./js/jquery/jquery-3.3.1.min.js" type="text/javascript" charset="utf-8"></script>
-  <script src="./page/ajax.js" type="text/javascript" charset="utf-8"></script>
   <script src=" ./js/sm.min.js" type="text/javascript"></script>
-  <script src=" ./js/sm-extend.min.js" type="text/javascript"></script>
-  <script src=" ./js/sm-city-picker.min.js" type="text/javascript"></script>
-
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script src="./js/countdown.min.js"></script>
   <script>
     var app = new Vue({
       el: '#app',
@@ -259,18 +144,64 @@
         return {
           account: '',
           sPassword: '',
+          aList: [],
+          sSelectTab: '',
+          oInterval: [],
         };
       },
       methods: {
-        fnClickJumpToDetail (){
-          location.href = './page/detail/index.html?id=71'
-        }
+        fnClickJumpToDetail() {
+          location.href = './page/detail/index.html?id=71';
+        },
+        fnClickSearchList(data) {
+          this.sSelectTab = data;
+          var token = localStorage.getItem('sToken');
+          var that = this;
+          axios({
+            method: 'post',
+            url: 'http://121.42.233.49:7888/job/list',
+            headers: { token: token },
+            params: {
+              current: 0,
+              size: 10000,
+              stateQ: data,
+            },
+          })
+            .then(function (response) {
+              const newList = response.data.data.records;
+              newList.forEach((item) => {
+                const newDate = new Date(item.createTime).getTime();
+                const nowTime = new Date().getTime();
+                if ((item.addressType === 1 ? 45 : item.addressType === 2 ? 90 : 120) - (nowTime - newDate) / 1000 / 60 < 0) {
+                  item.isEnd = true;
+                } else {
+                  this.oInterval[item.id] = setInterval(() => {
+                    let oCountDown = window.myCountdown(
+                      new Date().getTime(),
+                      newDate + (item.addressType === 1 ? 45 : item.addressType === 2 ? 90 : 120) * 60 * 1000
+                    );
+                    let hours = oCountDown.hours;
+                    let minutes = (oCountDown.minutes > 9 ? '' : '0') + oCountDown.minutes;
+                    let seconds = (oCountDown.seconds > 9 ? '' : '0') + oCountDown.seconds;
+                    item.hours = hours;
+                    item.minutes = minutes;
+                    item.seconds = seconds;
+                  }, 1000);
+                }
+              });
+              that.aList = newList;
+            })
+            .catch(function (error) {
+              location.href = './page/login/index.html';
+            });
+        },
       },
       mounted() {
         var token = localStorage.getItem('sToken');
         if (!token) {
           location.href = './page/login/index.html';
         }
+        this.fnClickSearchList(1);
       },
     });
   </script>
