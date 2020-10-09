@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport"
+		content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="./index.css" />
+	<link rel="stylesheet" type="text/css" href="../../page/rest.css" />
+  <link rel="stylesheet" href=" ../../css/sm.min.css" />
+  <!-- 引入样式文件 -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vant@2.10/lib/index.css" />
+</head>
+
+<body>
+	<!-- page 容器 -->
+	<div class="page descripton" id="app">
+    <div class="head-bar">
+      <div class="back-icon" @click="()=>{window.history.go(-1)}">
+        <img style="width: 19px;" src="../../images/back1.png" alt="">
+      </div>
+      工单明细
+    </div>
+    <!-- header -->
+    <div class="desc-headbar">
+      <div class="num">
+        <span class="small">NO.</span>
+        <span class="nomal">{{ id }}</span>
+      </div>
+      <div class="back">
+        {{ infoObj.createTime }}
+      </div>
+    </div>
+    <div class="item-wrap">
+      <div class="info-item">
+        <div class="item">
+          <div class="label"><span>*</span>用户编号</div>
+          <input class="input" disabled v-model="id" placeholder="请输入" type="text">
+        </div>
+        <div class="item">
+          <div class="label"><span>*</span>表号</div>
+          <input class="input" v-model="emNumber" placeholder="请输入" type="text">
+        </div>
+      </div>
+      <div class="info-item" style="padding-bottom: 0;">
+        <div class="item">
+          <div class="label"><span>*</span>故障原因</div>
+          <input class="input" v-model="faultCause" placeholder="请输入" type="text">
+        </div>
+        <div class="item">
+          <div class="label"><span>*</span>故障描述</div>
+          <input class="input" v-model="faultDescribe" placeholder="请输入" type="text">
+        </div>
+        <div class="item">
+          <div class="label"><span>*</span>现场照片</div>
+          <!-- <input class="input" placeholder="请输入" type="text"> -->
+          <van-form class="file-upload">
+            <van-field name="uploader">
+              <template #input>
+                <van-uploader v-model="uploader" />
+              </template>
+            </van-field>
+          </van-form>
+        </div>
+      </div>
+      <div class="info-item">
+        <div class="item">
+          <div class="label"><span>*</span>一级分类</div>
+          <input class="input" @click="showPicker = true" v-model="value[0]" placeholder="请输入" type="text">
+        </div>
+        <div class="item">
+          <div class="label"><span>*</span>二级分类</div>
+          <input class="input" @click="showPicker = true" v-model="value[1]" placeholder="请输入" type="text">
+        </div>
+        <div class="item">
+          <div class="label"><span>*</span>三级分类</div>
+          <input class="input" @click="showPicker = true" v-model="value[2]" placeholder="请输入" type="text">
+        </div>
+      </div>
+      <div class="info-item">
+        <div class="item">
+          <div class="label"><span>*</span>超时说明</div>
+          <input class="input" v-model="timeoutDesc" placeholder="请输入" type="text">
+        </div>
+      </div>
+      <div class="desc-btn" @click="setBack">
+        提交
+      </div>
+    </div>
+    <van-popup v-model="showPicker" round position="bottom">
+      <van-picker show-toolbar title="问题分类" @cancel="showPicker = false" @confirm="onConfirm" :columns="columns" />
+    </van-popup>
+	</div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script src="https://cdn.jsdelivr.net/npm/vant@2.10/lib/vant.min.js"></script>
+<script src="https://unpkg.com/dayjs@1.8.21/dayjs.min.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="../../js/jquery/jquery-3.3.1.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../ajax.js" type="text/javascript" charset="utf-8"></script>
+<script src=" ../../js/sm.min.js" type="text/javascript"></script>
+<script src=" ../../js/sm-extend.min.js" type="text/javascript"></script>
+<script src=" ../../js/sm-city-picker.min.js" type="text/javascript"></script>
+<script src="./index.js"></script>
+
+</html>

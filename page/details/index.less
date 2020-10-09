@@ -1,0 +1,206 @@
+   .background {
+  background: linear-gradient(0deg, #23EFC7, #1ABC9C) !important;
+  height: 217px;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -1;
+}
+.descripton {
+  padding: 18px;
+  box-sizing: border-box;
+}
+.desc-headbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  .back {
+    width: 19px;
+    height: 18px;
+  }
+  .small {
+    font-size: 11px;
+    font-family: Arial;
+    font-weight: bold;
+    color: #fff;
+  }
+  .nomal {
+    font-size: 21px;
+    font-family: Hiragino Sans GB;
+    font-weight: bold;
+    color: #fff;
+  }
+}
+.desc-timer {
+  margin-top: 10px;
+  background: #FFFFFF;
+  box-shadow: 1px 2px 5px 0px rgba(0, 0, 0, 0.15);
+  border-radius: 0px 11px 11px 11px;
+  display: flex;
+  justify-content: space-between;
+  padding: 15px 25px;
+  position: relative;
+  .desc-name {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 37px;
+    height: 37px;
+    background: #FB9F46;
+    box-shadow: 1px 2px 21px 0px rgba(251, 160, 70, 0.5);
+    border-radius: 0px 0px 85px 0px;
+    color: #fff;
+    padding-left: 6px;
+    padding-top: 3px;
+  }
+  .lf {
+    width: calc(100% - 120px);
+    text-align: right;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .time {
+    font-size: 13px;
+    font-family: Hiragino Sans GB;
+    font-weight: normal;
+    color: #9A9A9A;
+    line-height: 21px;
+  }
+  .info {
+    font-size: 12px;
+    font-family: Hiragino Sans GB;
+    font-weight: normal;
+    color: #343434;
+  }
+  .djs {
+    font-size: 32px;
+    font-family: Arial;
+    font-weight: 400;
+    color: #1BBF9F;
+  }
+  .rt {
+    width: 98px;
+    height: 98px;
+  }
+  .sm {
+    font-size: 12px;
+    color: #9A9A9A;
+      margin: 0 2px;
+  }
+}
+
+.desc-node {
+  background: #FFFFFF;
+  box-shadow: 1px 2px 5px 0px rgba(0, 0, 0, 0.15);
+  border-radius: 11px;
+  display: flex;
+  padding: 16px 22px 30px;
+  box-sizing: border-box;
+  justify-content: space-between;
+  color: #fff;
+  margin-top: 15px;
+  margin-bottom: 17px;
+  .node-step {
+    text-align: center;
+    line-height: 39px;
+    width: 39px;
+    height: 39px;
+    border-radius: 50%;
+    position: relative;
+    background: #E0E0E0;
+  }
+  .node-step.done {
+    background: linear-gradient(7deg, #1AC0A0, #1AC0A0);
+    box-shadow: -1px 2px 7px 0px rgba(26, 192, 160, 0.34);
+  }
+  .node-step.active {
+    background: #4589FB;
+    box-shadow: -2px 1px 6px 0px rgba(69, 137, 251, 0.34);
+  }
+  .node-step::after {
+    content: "";
+    display: block;
+    width: 80%;
+    height: 2px;
+    background: gray;
+    position: absolute;
+    top: 50%;
+    right: -31px;
+    opacity: 0.3;
+  }
+  .node-step:last-child::after {
+    display: none;
+  }
+  .sm {
+    font-size: 11px;
+    font-family: Hiragino Sans GB;
+    font-weight: normal;
+    color: #666666;
+    line-height: 30px;
+    text-align: center;
+  }
+}
+
+.desc-item {
+  margin-bottom: 7px;
+  background: #FFFFFF;
+  box-shadow: 1px 2px 5px 0px rgba(0, 0, 0, 0.15);
+  border-radius: 11px;
+  padding: 10px 20px;
+  box-sizing: border-box;
+  font-size: 13px;
+  font-family: Hiragino Sans GB;
+  font-weight: normal;
+  color: #343434;
+  .item {
+    line-height: 30px;
+  }
+  .item-icon {
+    width: 12px;
+    height: 12px;
+    background: red;
+    position: relative;
+    top: 8px;
+    left: -4px;
+  }
+}
+
+.other-wrap {
+  background: #FFFFFF;
+  box-shadow: 1px 2px 5px 0px rgba(0, 0, 0, 0.15);
+  border-radius: 11px;
+  padding: 20px 23px;
+  .other-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 12px;
+  }
+  .label {
+    font-size: 12px;
+    font-family: Hiragino Sans GB;
+    font-weight: normal;
+    color: #9A9A9A;
+  }
+  .value {
+    width: 195px;
+    font-size: 12px;
+    font-family: Hiragino Sans GB;
+    font-weight: normal;
+    color: #343434;
+    text-align: right;
+  }
+}
+
+.desc-btn {
+  margin-top: 19px;
+  height: 53px;
+  background: rgba(26, 188, 156, 0.95);
+  box-shadow: -1px 2px 7px 0px rgba(26, 192, 160, 0.34);
+  border-radius: 27px;
+  line-height: 53px;
+  text-align: center;
+  color: #fff;
+  letter-spacing: 6px;
+}
