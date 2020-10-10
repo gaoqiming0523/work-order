@@ -28,10 +28,36 @@ var app = new Vue({
           ],
         },
       ],
+      columns2: ['杆线', '主线'],
+      columns3: ['外力', '自然', '设计施工', '运行维护'],
+      columns4: ['小类问题一', '小类问题二'],
       emNumber: 0,
       faultCause: '',
       faultDescribe: '',
-      timeoutDesc: ''
+      timeoutDesc: '',
+      checked: false,
+      faultTypeFlag: false,
+      faultCauseFlag: false,
+      faultCauseFlagTwo: false,
+      message: '',
+      formData: {
+        id: location.href.split('?')[1].split('=')[1],
+        startRegion: '',
+        endRegion: '',
+        isFindRegion: false,
+        isUserFault: false,
+        faultDeviceFault: '', // 0
+        faultRegionStart: 0,
+        faultRegionEnd: 0,
+        faultPointPhoto: '',
+        faultRegionPoint: '',
+        faultCauseOne: '', // 1
+        faultCauseTwo: '', // 2
+        desc: '',
+        isFaultHandle: false,
+        isElectricJob: false,
+        faultDescribePhoto: '',
+      }
     };
   },
   created() { },
@@ -68,6 +94,21 @@ var app = new Vue({
       console.log('value', value)
       this.value = value;
       this.showPicker = false;
+    },
+    onConfirm2(value) {
+      console.log('123')
+      this.formData.faultDeviceFault = value
+      this.faultTypeFlag = false;
+    },
+    onConfirm3(value) {
+      console.log('123')
+      this.formData.faultCauseOne = value
+      this.faultCauseFlag = false;
+    },
+    onConfirm4(value) {
+      console.log('123')
+      this.formData.faultCauseTwo = value
+      this.faultCauseFlagTwo = false;
     },
     setBack(id) {
       this.setSingle(id)
@@ -110,13 +151,31 @@ var app = new Vue({
         method: 'post',
         url: 'http://121.42.233.49:7888/job/handle-10kv',
         headers: { token: this.token },
+        data: {
+          id: this.id,
+          startRegion: this.formData.startRegion,
+          endRegion: this.formData.endRegion,
+          isFindRegion: this.formData.isFindRegion ? 1 : 0,
+          isUserFault: this.formData.isUserFault ? 1 : 0,
+          faultDeviceFault: 1, // 0
+          faultRegionStart: 10,
+          faultRegionEnd: 20,
+          faultPointPhoto: '',
+          faultRegionPoint: this.formData.faultRegionPoint,
+          faultCauseOne: 1, // 1
+          faultCauseTwo: 2, // 2
+          isFaultHandle: this.formData.isFaultHandle ? 1 : 0,
+          isElectricJob: this.formData.isElectricJob ? 1 : 0,
+          faultDescribePhoto: '',
+        }
       })
         .then(function (response) {
           console.log(response.data)
+          location.href = '../../index.html'
         })
         .catch(function (error) {
           console.log(error);
-          location.href = '../login/index.html'
+          // location.href = '../login/index.html'
         });
     },
     // 回单-无网络 单户

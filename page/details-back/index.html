@@ -88,35 +88,43 @@
         提交
       </div>
     </div>
-    <div v-if="infoObj.jobType === 3" class="item-wrap">
+    <div v-if="infoObj.jobType === 3" class="item-wrap zhongya">
+      <div class="moreInfo-style">确认故障区段</div>
       <div class="info-item">
         <div class="item">
           <div class="label"><span>*</span>起始开关</div>
-          <input class="input" v-model="id" placeholder="请输入" type="text">
+          <input class="input" v-model="formData.startRegion" placeholder="请输入" type="text">
         </div>
         <div class="item">
           <div class="label"><span>*</span>终止开关</div>
-          <input class="input" v-model="emNumber" placeholder="请输入" type="text">
+          <input class="input" v-model="formData.endRegion" placeholder="请输入" type="text">
         </div>
       </div>
+      <div class="moreInfo-style">故障点定位</div>
       <div class="info-item">
-        <div class="item">
+        <div class="item between">
           <div class="label"><span>*</span>是否找到故障点</div>
-          <van-switch v-model="checked" size="24px" />
+          <van-switch v-model="formData.isFindRegion" inactive-color="#bbbbbb" size="16px" />
         </div>
-        <div class="item">
+        <div class="item between">
           <div class="label"><span>*</span>是否用户内部故障</div>
-          <van-switch v-model="checked" size="24px" />
+          <van-switch v-model="formData.isUserFault" inactive-color="#bbbbbb" size="16px" />
         </div>
       </div>
+      <div class="moreInfo-style">故障点类型</div>
       <div class="info-item" style="padding-bottom: 0;">
         <div class="item">
           <div class="label"><span>*</span>设备故障类型</div>
-          <input class="input" v-model="faultCause" placeholder="请输入" type="text">
+          <input class="input" v-model="formData.faultDeviceFault" @click="faultTypeFlag = true" placeholder="请选择" type="text">
         </div>
-        <div class="item">
+        <div class="item between">
           <div class="label"><span>*</span>确认故障点(架空)</div>
-          <input class="input" v-model="faultDescribe" placeholder="请输入" type="text">
+          <div style="position: relative;top: -3px;">
+            <input class="fromTo" v-model="formData.faultRegionStart" type="text">
+            <span class="fromToText">杆到</span>
+            <input class="fromTo" v-model="formData.faultRegionEnd" type="text">
+            <span class="fromToText">杆</span>
+          </div>
         </div>
         <div class="item">
           <div class="label"><span>*</span>照片上传</div>
@@ -130,30 +138,31 @@
           </van-form>
         </div>
       </div>
-      <div class="info-item">
+      <div class="moreInfo-style">故障点描述</div>
+      <div class="info-item" style="padding-bottom: 0;">
         <div class="item">
           <div class="label"><span>*</span>故障部位</div>
-          <input class="input" v-model="timeoutDesc" placeholder="请输入" type="text">
+          <input class="input" v-model="formData.faultRegionPoint" placeholder="请输入" type="text">
         </div>
         <div class="item">
           <div class="label"><span>*</span>故障原因大类</div>
-          <input class="input" v-model="timeoutDesc" placeholder="请输入" type="text">
+          <input class="input" v-model="formData.faultCauseOne" @click="faultCauseFlag = true" placeholder="请输入" type="text">
         </div>
         <div class="item">
           <div class="label"><span>*</span>故障原因小类</div>
-          <input class="input" v-model="timeoutDesc" placeholder="请输入" type="text">
+          <input class="input" v-model="formData.faultCauseTwo" @click="faultCauseFlagTwo = true" placeholder="请输入" type="text">
         </div>
         <div class="item">
           <div class="label"><span>*</span>故障原因详情</div>
           <input class="input" v-model="timeoutDesc" placeholder="请输入" type="text">
         </div>
-        <div class="item">
+        <div class="item between">
           <div class="label"><span>*</span>是否处理</div>
-          <van-switch v-model="checked" size="24px" />
+          <van-switch v-model="formData.isFaultHandle" inactive-color="#bbbbbb" size="16px" />
         </div>
-        <div class="item">
+        <div class="item between">
           <div class="label"><span>*</span>是否带电作业</div>
-          <van-switch v-model="checked" size="24px" />
+          <van-switch v-model="formData.isElectricJob" inactive-color="#bbbbbb" size="16px" />
         </div>
         <div class="item">
           <div class="label"><span>*</span>照片上传</div>
@@ -167,12 +176,21 @@
           </van-form>
         </div>
       </div>
-      <div class="desc-btn" @click="setBack">
+      <div class="desc-btn" @click="set10kv">
         提交
       </div>
     </div>
     <van-popup v-model="showPicker" round position="bottom">
       <van-picker show-toolbar title="问题分类" @cancel="showPicker = false" @confirm="onConfirm" :columns="columns" />
+    </van-popup>
+    <van-popup v-model="faultTypeFlag" position="bottom">
+      <van-picker show-toolbar :columns="columns2" @confirm="onConfirm2" @cancel="faultTypeFlag = false" />
+    </van-popup>
+    <van-popup v-model="faultCauseFlag" position="bottom">
+      <van-picker show-toolbar :columns="columns3" @confirm="onConfirm3" @cancel="faultCauseFlag = false" />
+    </van-popup>
+    <van-popup v-model="faultCauseFlagTwo" position="bottom">
+      <van-picker show-toolbar :columns="columns4" @confirm="onConfirm4" @cancel="faultCauseFlag = false" />
     </van-popup>
 	</div>
 </body>
