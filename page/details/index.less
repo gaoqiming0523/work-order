@@ -2,7 +2,7 @@
   background: linear-gradient(0deg, #23EFC7, #1ABC9C) !important;
   height: 217px;
   width: 100%;
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
   z-index: -1;
@@ -10,6 +10,8 @@
 .descripton {
   padding: 18px;
   box-sizing: border-box;
+  overflow: auto !important;
+  padding-bottom: 20px;
 }
 .desc-headbar {
   display: flex;
@@ -203,4 +205,12 @@
   text-align: center;
   color: #fff;
   letter-spacing: 6px;
+}
+
+.moreInfo-style {
+  font-size: 15px;
+  font-family: Hiragino Sans GB;
+  font-weight: normal;
+  color: #9A9A9A;
+  padding: 10px 0 5px;
 }

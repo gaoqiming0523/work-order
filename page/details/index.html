@@ -49,30 +49,128 @@
       <div class="node-step" :class="infoObj.state >= 3?infoObj.state === 3?'active':'done':''">修<div class="sm" v-if="infoObj.state === 3">抢修中</div><div class="sm" v-else-if="infoObj.state > 3">已完成</div></div>
       <div class="node-step" :class="infoObj.state >= 4?infoObj.state === 4?'active':'done':''">结<div class="sm" v-if="infoObj.state === 5">已完成</div><div class="sm" v-else-if="infoObj.state === 6">未通过</div></div>
     </div>
-    <div class="desc-item">
-      <div class="item"><img class="item-icon" style="position: relative; top: 3px;" src="../../images/icon1.png" alt="">{{ infoObj.faultName }}</div>
-    </div>
-    <div class="desc-item">
-      <div class="item"><img class="item-icon" style="position: relative; top: 0px;" src="../../images/icon2.png" alt="">{{ infoObj.address }}</div>
-      <div class="item"><img class="item-icon" style="position: relative; top: 2px;" src="../../images/icon3.png" alt="">{{ infoObj.reporterPhone }}</div>
-    </div>
-    <div class="desc-item" v-if="infoObj.state >= 3">
-      <div class="item"><img class="item-icon" style="position: relative; top: 0px;" src="../../images/icon4.png" alt="">{{ infoObj.confirmTime }} 到达</div>
-    </div>
-    <div class="desc-item" v-if="infoObj.state >= 4">
-      <div class="item"><img class="item-icon" style="position: relative; top: 0px;" src="../../images/icon4.png"
-          alt="">{{ infoObj.finishTime }} 完成</div>
-    </div>
-    <div class="other-wrap" style="display: none;">
-      <div class="other-item">
-        <div class="label">故障名称</div>
-        <div class="value">车装站</div>
+    <section v-if="infoObj.jobType === 1 || infoObj.jobType === 2">
+      <div class="desc-item">
+        <div class="item"><img class="item-icon" style="position: relative; top: 3px;" src="../../images/icon1.png"
+            alt="">{{ infoObj.faultName }}</div>
       </div>
-      <div class="other-item">
-        <div class="label">发生时间</div>
-        <div class="value">{{ infoObj.createTime }}</div>
+      <div class="desc-item">
+        <div class="item"><img class="item-icon" style="position: relative; top: 0px;" src="../../images/icon2.png"
+            alt="">{{ infoObj.address }}</div>
+        <div class="item"><img class="item-icon" style="position: relative; top: 2px;" src="../../images/icon3.png"
+            alt="">{{ infoObj.reporterPhone }}</div>
       </div>
-    </div>
+      <div class="desc-item" v-if="infoObj.state >= 3">
+        <div class="item"><img class="item-icon" style="position: relative; top: 0px;" src="../../images/icon4.png"
+            alt="">{{ infoObj.confirmTime }} 到达</div>
+      </div>
+      <div class="desc-item" v-if="infoObj.state >= 4">
+        <div class="item"><img class="item-icon" style="position: relative; top: 0px;" src="../../images/icon4.png"
+            alt="">{{ infoObj.finishTime }} 完成</div>
+      </div>
+    </section>
+    <section v-if="infoObj.jobType === 3">
+      <div class="other-wrap">
+        <div class="other-item">
+          <div class="label">故障名称</div>
+          <div class="value">{{ infoObj.faultName }}</div>
+        </div>
+        <div class="other-item">
+          <div class="label">发生时间</div>
+          <div class="value">{{ infoObj.createTime }}</div>
+        </div>
+        <div class="other-item">
+          <div class="label">变电站</div>
+          <div class="value">{{ infoObj.substation }}</div>
+        </div>
+        <div class="other-item">
+          <div class="label">故障线路</div>
+          <div class="value">{{ infoObj.faultLine }}</div>
+        </div>
+        <div class="other-item">
+          <div class="label">保护动物类别</div>
+          <div class="value">{{ infoObj.protectCategory }}</div>
+        </div>
+        <div class="other-item">
+          <div class="label">保护动物行为</div>
+          <div class="value">{{ infoObj.protectAction }}</div>
+        </div>
+        <div class="other-item">
+          <div class="label">设备调度号</div>
+          <div class="value">{{ infoObj.dispatchNumber }}</div>
+        </div>
+      </div>
+      <section v-if="infoObj.state >= 4">
+        <div class="moreInfo-style">确认故障区段</div>
+        <div class="other-wrap">
+          <div class="other-item">
+            <div class="label">起始开关</div>
+            <div class="value">{{ infoObj.startRegion }}</div>
+          </div>
+          <div class="other-item">
+            <div class="label">终止开关</div>
+            <div class="value">{{ infoObj.endRegion }}</div>
+          </div>
+        </div>
+        <div class="moreInfo-style">故障点定位</div>
+        <div class="other-wrap">
+          <div class="other-item">
+            <div class="label">是否找到故障点</div>
+            <div class="value">{{ infoObj.isFindRegion===1?'是':'否' }}</div>
+          </div>
+          <div class="other-item">
+            <div class="label">是否用户内部故障</div>
+            <div class="value">{{ infoObj.isUserFault===1?'是':'否' }}</div>
+          </div>
+        </div>
+        <div class="moreInfo-style">故障点类型</div>
+        <div class="other-wrap">
+          <div class="other-item">
+            <div class="label">故障设备类型</div>
+            <div class="value">杆线</div>
+          </div>
+          <div class="other-item">
+            <div class="label">确认故障点(架空)</div>
+            <div class="value">2杆到3杆</div>
+          </div>
+          <div class="other-item">
+            <div class="label">照片上传</div>
+            <div class="value"></div>
+          </div>
+        </div>
+        <div class="moreInfo-style">故障点描述</div>
+        <div class="other-wrap">
+          <div class="other-item">
+            <div class="label">故障部位</div>
+            <div class="value">负荷开关</div>
+          </div>
+          <div class="other-item">
+            <div class="label">故障点原因大类</div>
+            <div class="value">设备原因</div>
+          </div>
+          <div class="other-item">
+            <div class="label">故障点原因小类</div>
+            <div class="value">柱上开关-用户分界负荷开关</div>
+          </div>
+          <div class="other-item">
+            <div class="label">故障原因详情</div>
+            <div class="value">线路短路</div>
+          </div>
+          <div class="other-item">
+            <div class="label">是否找到故障点</div>
+            <div class="value">是</div>
+          </div>
+          <div class="other-item">
+            <div class="label">是否用户内部故障</div>
+            <div class="value">是</div>
+          </div>
+          <div class="other-item">
+            <div class="label">照片上传</div>
+            <div class="value"></div>
+          </div>
+        </div>
+      </section>
+    </section>
     <div class="desc-btn" v-if="infoObj.state === 1" @click="setAccept(infoObj.id)">接单</div>
     <div class="desc-btn" v-if="infoObj.state === 2" @click="setArrive(infoObj.id)">到达现场</div>
     <div class="desc-btn" v-if="infoObj.state === 3" @click="setBack(infoObj.id)">回单</div>

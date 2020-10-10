@@ -37,6 +37,7 @@ var app = new Vue({
   created() { },
   destroyed() { },
   mounted() {
+    this.getInfo()
   },
   filters: {
     formatTime(val) {
@@ -46,6 +47,23 @@ var app = new Vue({
     }
   },
   methods: {
+    // 订单详情
+    getInfo() {
+      var that = this
+      axios({
+        method: 'post',
+        url: 'http://121.42.233.49:7888/job/info/' + this.id,
+        headers: { token: this.token },
+      })
+        .then(function (response) {
+          that.infoObj = response.data.data
+          console.log(response.data)
+        })
+        .catch(function (error) {
+          console.log(error);
+          location.href = '../login/index.html'
+        });
+    },
     onConfirm(value) {
       console.log('value', value)
       this.value = value;

@@ -32,7 +32,7 @@
         {{ infoObj.createTime }}
       </div>
     </div>
-    <div class="item-wrap">
+    <div v-if="infoObj.jobType === 1 || infoObj.jobType === 2" class="item-wrap">
       <div class="info-item">
         <div class="item">
           <div class="label"><span>*</span>用户编号</div>
@@ -82,6 +82,89 @@
         <div class="item">
           <div class="label"><span>*</span>超时说明</div>
           <input class="input" v-model="timeoutDesc" placeholder="请输入" type="text">
+        </div>
+      </div>
+      <div class="desc-btn" @click="setBack">
+        提交
+      </div>
+    </div>
+    <div v-if="infoObj.jobType === 3" class="item-wrap">
+      <div class="info-item">
+        <div class="item">
+          <div class="label"><span>*</span>起始开关</div>
+          <input class="input" v-model="id" placeholder="请输入" type="text">
+        </div>
+        <div class="item">
+          <div class="label"><span>*</span>终止开关</div>
+          <input class="input" v-model="emNumber" placeholder="请输入" type="text">
+        </div>
+      </div>
+      <div class="info-item">
+        <div class="item">
+          <div class="label"><span>*</span>是否找到故障点</div>
+          <van-switch v-model="checked" size="24px" />
+        </div>
+        <div class="item">
+          <div class="label"><span>*</span>是否用户内部故障</div>
+          <van-switch v-model="checked" size="24px" />
+        </div>
+      </div>
+      <div class="info-item" style="padding-bottom: 0;">
+        <div class="item">
+          <div class="label"><span>*</span>设备故障类型</div>
+          <input class="input" v-model="faultCause" placeholder="请输入" type="text">
+        </div>
+        <div class="item">
+          <div class="label"><span>*</span>确认故障点(架空)</div>
+          <input class="input" v-model="faultDescribe" placeholder="请输入" type="text">
+        </div>
+        <div class="item">
+          <div class="label"><span>*</span>照片上传</div>
+          <!-- <input class="input" placeholder="请输入" type="text"> -->
+          <van-form class="file-upload">
+            <van-field name="uploader">
+              <template #input>
+                <van-uploader v-model="uploader" />
+              </template>
+            </van-field>
+          </van-form>
+        </div>
+      </div>
+      <div class="info-item">
+        <div class="item">
+          <div class="label"><span>*</span>故障部位</div>
+          <input class="input" v-model="timeoutDesc" placeholder="请输入" type="text">
+        </div>
+        <div class="item">
+          <div class="label"><span>*</span>故障原因大类</div>
+          <input class="input" v-model="timeoutDesc" placeholder="请输入" type="text">
+        </div>
+        <div class="item">
+          <div class="label"><span>*</span>故障原因小类</div>
+          <input class="input" v-model="timeoutDesc" placeholder="请输入" type="text">
+        </div>
+        <div class="item">
+          <div class="label"><span>*</span>故障原因详情</div>
+          <input class="input" v-model="timeoutDesc" placeholder="请输入" type="text">
+        </div>
+        <div class="item">
+          <div class="label"><span>*</span>是否处理</div>
+          <van-switch v-model="checked" size="24px" />
+        </div>
+        <div class="item">
+          <div class="label"><span>*</span>是否带电作业</div>
+          <van-switch v-model="checked" size="24px" />
+        </div>
+        <div class="item">
+          <div class="label"><span>*</span>照片上传</div>
+          <!-- <input class="input" placeholder="请输入" type="text"> -->
+          <van-form class="file-upload">
+            <van-field name="uploader">
+              <template #input>
+                <van-uploader v-model="uploader" />
+              </template>
+            </van-field>
+          </van-form>
         </div>
       </div>
       <div class="desc-btn" @click="setBack">

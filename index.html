@@ -150,8 +150,8 @@
         };
       },
       methods: {
-        fnClickJumpToDetail() {
-          location.href = './page/detail/index.html?id=71';
+        fnClickJumpToDetail(id) {
+          location.href = './page/details/index.html?id=' + id;
         },
         fnClickSearchList(data) {
           this.sSelectTab = data;
@@ -175,7 +175,7 @@
                 if ((item.addressType === 1 ? 45 : item.addressType === 2 ? 90 : 120) - (nowTime - newDate) / 1000 / 60 < 0) {
                   item.isEnd = true;
                 } else {
-                  this.oInterval[item.id] = setInterval(() => {
+                  that.oInterval[item.id] = setInterval(() => {
                     let oCountDown = window.myCountdown(
                       new Date().getTime(),
                       newDate + (item.addressType === 1 ? 45 : item.addressType === 2 ? 90 : 120) * 60 * 1000
