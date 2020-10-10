@@ -5,3 +5,16 @@
   margin: 0;
   font-family: '微软雅黑';
 }
+.content {
+  position: relative
+}
+.bar-header-secondary {
+  top: 0 !important
+}
+.work-order {
+  width: 360px;
+  position: absolute;
+  bottom: 220px;
+  left: 5px;
+  overflow: hidden;
+}

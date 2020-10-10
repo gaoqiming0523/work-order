@@ -29,6 +29,7 @@
         <a class="tab-item external" href="./page/message/index.html">
           <span class="icon icon-message"></span>
           <span class="tab-label">消息</span>
+          <span class="badge">4</span>
         </a>
         <a class="tab-item external" href="./page/mine/index.html">
           <span class="icon icon-me"></span>
@@ -60,16 +61,16 @@
                   <p class="work-order-desc">{{ item.faultName }}</p>
                   <p class="work-order-map">{{ item.address }}</p>
                 </div>
-                <div class="work-order-time-canvas">
+                <div class="work-order-time-canvas" v-if="item.state === 1 || item.state === 2">
                   <div>距离到场剩余时间</div>
-                  <div class="old-time" :style="item.isEnd ? 'background: RGBA(249, 98, 98, 0.3)': ''">
+                  <div class="old-time" :style="item.isEnd ? 'background: RGBA(249, 98, 98, 0.3)': 'text-align: center;line-height:16px;font-size:12px'">
                     <div
                       class="now-time"
                       :style="item.isEnd ? 'background: RGBA(249, 98, 98, 1);color: white;font-size: 12px;width: 100%;text-align: center;line-height: 14px': ''"
                     >
                       {{item.isEnd ? '已超时' : '' }}
                     </div>
-                    {{ item.isEnd? '' : `item.hours +''+ item.minutes +''+ item.second` }}
+                    {{ item.isEnd ? '' : item.sCountdownShow }}
                   </div>
                 </div>
                 <div class="work-order-button">接单</div>
@@ -89,16 +90,16 @@
                   <p class="work-order-desc">{{ item.faultName }}</p>
                   <p class="work-order-map">{{ item.address }}</p>
                 </div>
-                <div class="work-order-time-canvas">
+                <div class="work-order-time-canvas" v-if="item.state === 1 || item.state === 2">
                   <div>距离到场剩余时间</div>
-                  <div class="old-time" :style="item.isEnd ? 'background: RGBA(249, 98, 98, 0.3)': ''">
+                  <div class="old-time" :style="item.isEnd ? 'background: RGBA(249, 98, 98, 0.3)': 'text-align: center;line-height:16px;font-size:12px'">
                     <div
                       class="now-time"
                       :style="item.isEnd ? 'background: RGBA(249, 98, 98, 1);color: white;font-size: 12px;width: 100%;text-align: center;line-height: 14px': ''"
                     >
                       {{item.isEnd ? '已超时' : '' }}
                     </div>
-                    {{ item.isEnd? '' : `item.hours +''+ item.minutes +''+ item.second` }}
+                    {{ item.isEnd ? '' : item.sCountdownShow }}
                   </div>
                 </div>
                 <div class="work-order-button" :style="item.state === 3 ? 'background: #7C7D7D' : '' ">
@@ -175,25 +176,49 @@
                 if ((item.addressType === 1 ? 45 : item.addressType === 2 ? 90 : 120) - (nowTime - newDate) / 1000 / 60 < 0) {
                   item.isEnd = true;
                 } else {
-                  that.oInterval[item.id] = setInterval(() => {
-                    let oCountDown = window.myCountdown(
-                      new Date().getTime(),
-                      newDate + (item.addressType === 1 ? 45 : item.addressType === 2 ? 90 : 120) * 60 * 1000
-                    );
-                    let hours = oCountDown.hours;
-                    let minutes = (oCountDown.minutes > 9 ? '' : '0') + oCountDown.minutes;
-                    let seconds = (oCountDown.seconds > 9 ? '' : '0') + oCountDown.seconds;
-                    item.hours = hours;
-                    item.minutes = minutes;
-                    item.seconds = seconds;
-                  }, 1000);
+                  let oCountDown = window.myCountdown(
+                    new Date().getTime(),
+                    newDate + (item.addressType === 1 ? 45 : item.addressType === 2 ? 90 : 120) * 60 * 1000
+                  );
+                  let hours = oCountDown.hours;
+                  let minutes = (oCountDown.minutes > 9 ? '' : '0') + oCountDown.minutes;
+                  let seconds = (oCountDown.seconds > 9 ? '' : '0') + oCountDown.seconds;
+                  item.hours = hours;
+                  item.minutes = minutes;
+                  item.seconds = seconds;
+                  item.sCountdownShow = `${hours}:${minutes}:${seconds}`;
                 }
               });
               that.aList = newList;
+              that.fnBsnCutDown();
             })
             .catch(function (error) {
-              location.href = './page/login/index.html';
+              // location.href = './page/login/index.html';
             });
+        },
+        fnBsnCutDown() {
+          this.aList.forEach((item) => {
+            if(item.isEnd) return
+            this.oInterval[item.id] = setInterval(() => {
+              const newDate = new Date(item.createTime).getTime();
+              const nowTime = new Date().getTime();
+              if ((item.addressType === 1 ? 45 : item.addressType === 2 ? 90 : 120) - (nowTime - newDate) / 1000 / 60 < 0) {
+                item.isEnd = true;
+                return
+              }
+              let oCountDown = window.myCountdown(
+                new Date().getTime(),
+                newDate + (item.addressType === 1 ? 45 : item.addressType === 2 ? 90 : 120) * 60 * 1000
+              );
+              let hours = oCountDown.hours;
+              let minutes = (oCountDown.minutes > 9 ? '' : '0') + oCountDown.minutes;
+              let seconds = (oCountDown.seconds > 9 ? '' : '0') + oCountDown.seconds;
+              item.hours = hours;
+              item.minutes = minutes;
+              item.seconds = seconds;
+              item.sCountdownShow = `${hours}:${minutes}:${seconds}`;
+            }, 1000);
+          });
         },
       },
       mounted() {
