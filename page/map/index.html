@@ -5,6 +5,7 @@
     <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
     <title></title>
     <link rel="stylesheet" type="text/css" href="./index.css" />
+    <link rel="stylesheet" type="text/css" href="../../index.css" />
     <link rel="stylesheet" type="text/css" href="../../page/rest.css" />
     <link rel="stylesheet" href=" ../../css/sm.min.css" />
   </head>
@@ -14,7 +15,15 @@
     <div class="page">
       <!-- 标题栏 -->
       <header class="bar bar-nav theme-dark">
-        <h1 class="title">个人中心</h1>
+        <div class="bar bar-header-secondary">
+          <div class="searchbar">
+            <a class="searchbar-cancel">取消</a>
+            <div class="search-input">
+              <label class="icon icon-search" for="search"></label>
+              <input type="search" id='search' placeholder='输入工单...'/>
+            </div>
+          </div>
+        </div>
       </header>
 
       <!-- 工具栏 -->
@@ -30,6 +39,7 @@
         <a class="tab-item external" href="../message/index.html">
           <span class="icon icon-message"></span>
           <span class="tab-label">消息</span>
+          <span class="badge">4</span>
         </a>
         <a class="tab-item external" href="../mine/index.html">
           <span class="icon icon-me"></span>
@@ -41,6 +51,25 @@
       <div class="content">
         <!-- 头像及工号 -->
         <div id="allmap"></div>
+
+        <div class="work-order">
+          <span class="work-order-icon" 
+            >单</span
+          >
+          <div class="work-order-content">
+            <p class="work-order-title">
+              <span class="work-order-number">NO.</span>
+              50
+            </p>
+            <p class="work-order-time">2020-10-10 10:53:13</p>
+            <p class="work-order-desc">东方家园小区公变，请班组及时处理</p>
+            <p class="work-order-map">北市区五四东路东方家园</p>
+          </div>
+     
+          <div class="work-order-button" >
+            接单
+          </div>
+        </div>
       </div>
     </div>
   </body>
@@ -55,7 +84,7 @@
   <script type="text/javascript">
     var map = new BMap.Map('allmap');
     var point = new BMap.Point(116.404, 39.915);
-    map.centerAndZoom(point, 15);
+    map.centerAndZoom(point, 12);
     // 添加带有定位的导航控件
     var navigationControl = new BMap.NavigationControl({
       // 靠左上角位置
@@ -75,7 +104,7 @@
     function addMarker(point) {
         var marker = new BMap.Marker(point);
         map.addOverlay(marker);
-        var label = new BMap.Label('编号：554125，当前位置信息：' + point.lat + '，' + point.lng,{offset: point});
+        var label = new BMap.Label('工单编号：554125');
         addClickHandler(label);
         marker.setLabel(label);
     }
