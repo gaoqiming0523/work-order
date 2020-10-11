@@ -86,15 +86,11 @@
       },
       methods: {
         fnInitPageData() {
-          // 获取未读数量
-          this.fnNetRNoReadCount();
           // 初始化sorcket
 					this.fnInitSorcket();
           this.fnNetRReadist();
           this.fnGetNotReadMessage();
         },
-        // 获取未读数量
-				fnNetRNoReadCount() {},
 				// 获取消息列表
 				fnNetRReadist(){
 					var token = localStorage.getItem('sToken')
@@ -127,6 +123,7 @@
 					})
 						.then(function (response) {
 							that.aList[index].isRead = true
+              that.fnGetNotReadMessage()
 						})
 						.catch(function (error) {
 							location.href = '../login/index.html'
