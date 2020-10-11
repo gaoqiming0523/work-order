@@ -1,3 +1,7 @@
+.page {
+  height: calc(100vh) !important;
+  overflow: hidden;
+}
 #allmap {
   width: 100%;
   height: 100%;
@@ -13,8 +17,17 @@
 }
 .work-order {
   width: 360px;
-  position: absolute;
-  bottom: 220px;
+  position: absolute !important;
+  bottom: 10px;
   left: 5px;
   overflow: hidden;
+}
+.BMapLabel {
+  background: rgba(250, 159, 70, 1) !important;
+  color: white !important;
+  border-radius: 8px;
+  line-height: 18px;
+  font-size: 12px;
+  border: 0 !important;
+  padding: 4px !important;
 }

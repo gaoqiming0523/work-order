@@ -32,7 +32,7 @@
 			<a class="tab-item external" href="../message/index.html">
 				<span class="icon icon-message"></span>
 				<span class="tab-label">消息</span>
-				<span class="badge">4</span>
+				<span class="badge">{{notReadNum}}</span>
 			</a>
 			<a class="tab-item external active" href="../mine/index.html">
 				<span class="icon icon-me"></span>
@@ -112,20 +112,21 @@
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script>
 	var app = new Vue({
-	  el: '#app',
-	  data() {
-		  return {
-			  oUserInfo: {}
-		  }
-	  },
-	  methods: {
-		  fnNetRUserInfo() {
+		el: '#app',
+		data() {
+			return {
+				oUserInfo: {},
+				notReadNum: ''
+			}
+		},
+		methods: {
+			fnNetRUserInfo() {
 				var token = localStorage.getItem('sToken')
 				var that = this
 				axios({
-					method:'post',
-					url:'http://121.42.233.49:7888/user/info',
-					headers: {token: token}
+					method: 'post',
+					url: 'http://121.42.233.49:7888/user/info',
+					headers: { token: token }
 				})
 					.then(function (response) {
 						that.oUserInfo = response.data.data
@@ -134,13 +135,27 @@
 						location.href = '../login/index.html'
 					});
 			},
-			fnClickLogout (){
+			fnGetNotReadMessage() {
+				var token = localStorage.getItem('sToken')
+				axios({
+					method: 'get',
+					url: 'http://121.42.233.49:7888/msg/not-read',
+					headers: { token: token }
+				})
+					.then((response) => {
+						this.notReadNum = response.data.data
+					})
+					.catch(function (error) {
+						location.href = '../login/index.html'
+					});
+			},
+			fnClickLogout() {
 				var token = localStorage.getItem('sToken')
 				var that = this
 				axios({
-					method:'post',
-					url:'http://121.42.233.49:7888/user/info',
-					headers: {token: token}
+					method: 'post',
+					url: 'http://121.42.233.49:7888/user/info',
+					headers: { token: token }
 				})
 					.then(function (response) {
 						localStorage.removeItem('sToken')
@@ -151,10 +166,12 @@
 						location.href = '../login/index.html'
 					});
 			}
-	  },
-	  created() {
-		  this.fnNetRUserInfo()
-	  },
+		},
+		created() {
+			this.fnNetRUserInfo();
+			this.fnGetNotReadMessage()
+		},
 	})
 </script>
+
 </html>

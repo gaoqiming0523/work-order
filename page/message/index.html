@@ -30,7 +30,7 @@
         <a class="tab-item external active" href="../message/index.html">
           <span class="icon icon-message"></span>
           <span class="tab-label">消息</span>
-          <span class="badge">4</span>
+          <span class="badge">{{notReadNum}}</span>
         </a>
         <a class="tab-item external" href="../mine/index.html">
           <span class="icon icon-me"></span>
@@ -73,6 +73,7 @@
           nSocketPingInterval: null,
           nSocketConnectionInterval: null,
           socket: '',
+          notReadNum: '',
           sPath: `ws://121.42.233.49:7888/msg/socket/1000`,
         };
       },
@@ -89,7 +90,8 @@
           this.fnNetRNoReadCount();
           // 初始化sorcket
 					this.fnInitSorcket();
-					this.fnNetRReadist();
+          this.fnNetRReadist();
+          this.fnGetNotReadMessage();
         },
         // 获取未读数量
 				fnNetRNoReadCount() {},
@@ -101,7 +103,7 @@
 						method:'post',
 						url:'http://121.42.233.49:7888/msg/list',
 						headers: {token: token},
-						data: {
+						params: {
 							current: 0,
 							size: 10000
 						}
@@ -115,7 +117,6 @@
 				},
 				// 点击已读
 				fnClickMessage(id, index){
-					console.log(id)
 					// 为给定 ID 的 user 创建请求
 					var token = localStorage.getItem('sToken')
 					var that = this
@@ -130,7 +131,21 @@
 						.catch(function (error) {
 							location.href = '../login/index.html'
 						});
-				},
+        },
+        fnGetNotReadMessage(){
+          var token = localStorage.getItem('sToken')
+          axios({
+						method:'get',
+						url: 'http://121.42.233.49:7888/msg/not-read',
+						headers: {token: token}
+					})
+						.then((response)=> {
+							this.notReadNum = response.data.data
+						})
+						.catch(function (error) {
+							location.href = '../login/index.html'
+						});
+        },
         // 初始化socket
         fnInitSorcket() {
           if (typeof WebSocket === 'undefined') {

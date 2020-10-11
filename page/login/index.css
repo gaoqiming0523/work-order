@@ -1,14 +1,23 @@
 p {
     margin: 0 !important;
 }
+.page {
+    background:RGBA(248, 248, 248, 1) !important;
+    overflow: hidden;
+    width: 100%;
+}
 .login-image {
-    width: 128px;
-    height: 88px;
+    width: 234px;
+    height: 177px;
     position: absolute;
     top: 0;
-    right: 0;
-    background: linear-gradient(268deg, #37F9D6, #23BE85, #56EDD0);
+    right: -2px;
     opacity: 0.43;
+    
+}
+.login-image img{
+    width: 100%;
+    height: 100%;
 }
 
 .login-text{

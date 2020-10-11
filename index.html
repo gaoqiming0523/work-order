@@ -29,7 +29,7 @@
         <a class="tab-item external" href="./page/message/index.html">
           <span class="icon icon-message"></span>
           <span class="tab-label">消息</span>
-          <span class="badge">4</span>
+          <span class="badge">{{notReadNum}}</span>
         </a>
         <a class="tab-item external" href="./page/mine/index.html">
           <span class="icon icon-me"></span>
@@ -63,14 +63,13 @@
                 </div>
                 <div class="work-order-time-canvas" v-if="item.state === 1 || item.state === 2">
                   <div>距离到场剩余时间</div>
-                  <div class="old-time" :style="item.isEnd ? 'background: RGBA(249, 98, 98, 0.3)': 'text-align: center;line-height:16px;font-size:12px'">
+                  <div class="old-time" :style="item.isEnd ? 'background: RGBA(249, 98, 98, 0.3)': item.hours === 0 && item.minutes < 30 ? 'background:rgba(251, 159, 69, 0.3)': 'text-align: center;line-height:16px;font-size:12px'">
                     <div
                       class="now-time"
-                      :style="item.isEnd ? 'background: RGBA(249, 98, 98, 1);color: white;font-size: 12px;width: 100%;text-align: center;line-height: 14px': ''"
+                      :style="item.isEnd ? 'background: RGBA(249, 98, 98, 1);color: white;font-size: 12px;width: 100%;text-align: center;line-height: 14px': item.hours === 0 && item.minutes < 30 ? 'width: 50%;background:rgba(251, 159, 69, 1)' : ''"
                     >
-                      {{item.isEnd ? '已超时' : '' }}
                     </div>
-                    {{ item.isEnd ? '' : item.sCountdownShow }}
+                    <div style="position: absolute;z-index: 999;width: 100%;color:black;text-align: center;line-height: 14px">{{item.isEnd ? '已超时' : item.sCountdownShow  }}</div>
                   </div>
                 </div>
                 <div class="work-order-button">接单</div>
@@ -92,14 +91,13 @@
                 </div>
                 <div class="work-order-time-canvas" v-if="item.state === 1 || item.state === 2">
                   <div>距离到场剩余时间</div>
-                  <div class="old-time" :style="item.isEnd ? 'background: RGBA(249, 98, 98, 0.3)': 'text-align: center;line-height:16px;font-size:12px'">
+                  <div class="old-time" :style="item.isEnd ? 'background: RGBA(249, 98, 98, 0.3)': item.hours === 0 && item.minutes < 30 ? 'background:rgba(251, 159, 69, 0.3)': 'text-align: center;line-height:16px;font-size:12px'">
                     <div
                       class="now-time"
-                      :style="item.isEnd ? 'background: RGBA(249, 98, 98, 1);color: white;font-size: 12px;width: 100%;text-align: center;line-height: 14px': ''"
+                      :style="item.isEnd ? 'background: RGBA(249, 98, 98, 1);color: white;font-size: 12px;width: 100%;text-align: center;line-height: 14px': item.hours === 0 && item.minutes < 30 ? 'width: 50%;background:rgba(251, 159, 69, 1)' : ''"
                     >
-                      {{item.isEnd ? '已超时' : '' }}
                     </div>
-                    {{ item.isEnd ? '' : item.sCountdownShow }}
+                    <div style="position: absolute;z-index: 999;width: 100%;color:black;text-align: center;line-height: 14px">{{item.isEnd ? '已超时' : item.sCountdownShow  }}</div>
                   </div>
                 </div>
                 <div class="work-order-button" :style="item.state === 3 ? 'background: #7C7D7D' : '' ">
@@ -148,11 +146,26 @@
           aList: [],
           sSelectTab: '',
           oInterval: [],
+          notReadNum: ''
         };
       },
       methods: {
         fnClickJumpToDetail(id) {
           location.href = './page/details/index.html?id=' + id;
+        },
+        fnGetNotReadMessage() {
+          var token = localStorage.getItem('sToken')
+          axios({
+            method: 'get',
+            url: 'http://121.42.233.49:7888/msg/not-read',
+            headers: { token: token }
+          })
+            .then((response) => {
+              this.notReadNum = response.data.data
+            })
+            .catch(function (error) {
+              location.href = '../login/index.html'
+            });
         },
         fnClickSearchList(data) {
           this.sSelectTab = data;
@@ -163,7 +176,7 @@
             url: 'http://121.42.233.49:7888/job/list',
             headers: { token: token },
             params: {
-              current: 0,
+              current: 1,
               size: 10000,
               stateQ: data,
             },
@@ -227,6 +240,7 @@
           location.href = './page/login/index.html';
         }
         this.fnClickSearchList(1);
+        this.fnGetNotReadMessage()
       },
     });
   </script>

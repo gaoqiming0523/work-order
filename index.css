@@ -74,12 +74,14 @@ p {
   width: 100%;
   background: rgba(26, 188, 156, 0.3);
   position: relative;
+  z-index: 9;
 }
 .now-time {
   position: absolute;
   height: 14px;
   width: 10px;
   border-radius: 14px;
+  z-index: 1;
   background:  rgba(26, 188, 156, 1);;
 }
 .work-order-time {
