@@ -68,6 +68,34 @@
         <div class="item"><img class="item-icon" style="position: relative; top: 0px;" src="../../images/icon4.png"
             alt="">{{ infoObj.finishTime }} 完成</div>
       </div>
+      <div class="desc-item" v-if="infoObj.state >= 4">
+        <div class="item"><img class="item-icon" style="position: relative; top: 0px;" src="../../images/icon4.png"
+            alt="">用户编号：{{ infoObj.userId }}</div>
+        <div class="item"><img class="item-icon" style="position: relative; top: 0px;" src="../../images/icon4.png"
+            alt="">表号：{{ infoObj.emNumber }}</div>
+      </div>
+      <div class="desc-item" v-if="infoObj.state >= 4">
+        <div class="item"><img class="item-icon" style="position: relative; top: 0px;" src="../../images/icon4.png"
+            alt="">故障原因：{{ infoObj.faultCause }}</div>
+        <div class="item"><img class="item-icon" style="position: relative; top: 0px;" src="../../images/icon4.png"
+            alt="">故障描述：{{ infoObj.faultDescribe }}</div>
+      </div>
+      <div class="desc-item" v-if="infoObj.state >= 4">
+        <div class="item"><img class="item-icon" style="position: relative; top: 0px;" src="../../images/icon4.png"
+            alt="">现场图片</div>
+      </div>
+      <div class="desc-item" v-if="infoObj.state >= 4">
+        <div class="item"><img class="item-icon" style="position: relative; top: 0px;" src="../../images/icon4.png"
+            alt="">一级分类：故障类型一</div>
+        <div class="item"><img class="item-icon" style="position: relative; top: 0px;" src="../../images/icon4.png"
+            alt="">一级分类：软件问题</div>
+        <div class="item"><img class="item-icon" style="position: relative; top: 0px;" src="../../images/icon4.png"
+            alt="">一级分类：问题一</div>
+      </div>
+      <div class="desc-item" v-if="infoObj.state >= 4">
+        <div class="item"><img class="item-icon" style="position: relative; top: 0px;" src="../../images/icon4.png"
+            alt="">超时说明：{{ infoObj.timeoutDesc }}</div>
+      </div>
     </section>
     <section v-if="infoObj.jobType === 3">
       <div class="other-wrap">
