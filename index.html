@@ -13,8 +13,27 @@
     <div class="page" id="app">
       <!-- 标题栏 -->
       <header class="bar bar-nav theme-dark">
-        <h1 class="title">工单</h1>
-      </header>
+          <div class="bar bar-header-secondary" v-if="isSearch">
+            <div class="search-option" style="width: 25%;display: inline-block;vertical-align: top;height: 44px">
+              <select style="display: inline-block;width: 100%;margin-top: 10px">
+                <option value="工单编号" selected>工单编号</option>
+                <option value="故障原因">故障原因</option>
+                <option value="未知">未知</option>
+              </select>
+            </div>
+            <div class="searchbar" style="width:55%;margin-left:5%; display: inline-block;vertical-align: top;">
+             
+              <div class="search-input">
+                <label class="icon icon-search" for="search"></label>
+                <input type="search" id="search" placeholder="输入工单..." />
+              </div>
+            </div>
+            <a class="searchbar-cancel" style="width: 10%; margin-top: 10px;display: inline-block;margin-left: 5%;color:white" @click="fnClickCancel">取消</a>
+          </div>
+          <span class="icon icon-edit pull-left create-setteings" v-if="!isSearch"></span>
+          <span class="icon icon-search pull-right" v-if="!isSearch" @click="fnClickIsSearch"></span>
+          <h1 class="title" v-if="!isSearch">工单</h1>
+        </header>
 
       <!-- 工具栏 -->
       <nav class="bar bar-tab">
@@ -40,7 +59,7 @@
       <!-- 这里是页面内容区 -->
       <div class="content">
         <div class="buttons-tab">
-          <a href="#tab1" class="tab-link active button" @click="fnClickSearchList(1)"><span>代办工单</span></a>
+          <a href="#tab1" class="tab-link active button" @click="fnClickSearchList(1)"><span>待办工单</span></a>
           <a href="#tab2" class="tab-link button" @click="fnClickSearchList(2)"><span>在办工单</span></a>
           <a href="#tab3" class="tab-link button" @click="fnClickSearchList(5)"><span>已办工单</span></a>
         </div>
@@ -72,7 +91,7 @@
                     <div style="position: absolute;z-index: 999;width: 100%;color:black;text-align: center;line-height: 14px">{{item.isEnd ? '已超时' : item.sCountdownShow  }}</div>
                   </div>
                 </div>
-                <div class="work-order-button">接单</div>
+                <div class="work-order-button" @click.stop="setAccept(item.id)">接单</div>
               </div>
             </div>
             <div id="tab2" class="tab">
@@ -100,7 +119,7 @@
                     <div style="position: absolute;z-index: 999;width: 100%;color:black;text-align: center;line-height: 14px">{{item.isEnd ? '已超时' : item.sCountdownShow  }}</div>
                   </div>
                 </div>
-                <div class="work-order-button" :style="item.state === 3 ? 'background: #7C7D7D' : '' ">
+                <div class="work-order-button" @click.stop="setArrive(item.state, item.id)" :style="item.state === 3 ? 'background: #7C7D7D' : '' ">
                   {{ item.state === 2 ? '到达现场' : item.state === 3 ? '抢修中': '已完成' }}
                 </div>
               </div>
@@ -146,10 +165,17 @@
           aList: [],
           sSelectTab: '',
           oInterval: [],
-          notReadNum: ''
+          notReadNum: '',
+          isSearch: false
         };
       },
       methods: {
+        fnClickIsSearch(){
+          this.isSearch = true
+        },
+        fnClickCancel(){
+          this.isSearch = false
+        },
         fnClickJumpToDetail(id) {
           location.href = './page/details/index.html?id=' + id;
         },
@@ -165,6 +191,39 @@
             })
             .catch(function (error) {
               location.href = './page/login/index.html';
+            });
+        },
+        // 接单
+        setAccept(id) {
+          var that = this
+          var token = localStorage.getItem('sToken')
+          axios({
+            method: 'post',
+            url: 'http://121.42.233.49:7888/job/accept/' + id,
+            headers: { token: token },
+          })
+            .then(function (response) {
+              that.fnClickSearchList(that.sSelectTab)
+            })
+            .catch(function (error) {
+              location.href = './page/login/index.html';
+            });
+        },
+        // 到达现场/确认
+        setArrive(type,id) {
+          if(type !== 2) return
+          var token = localStorage.getItem('sToken')
+          var that = this
+          axios({
+            method: 'post',
+            url: 'http://121.42.233.49:7888/job/arrive/' + id,
+            headers: { token: token },
+          })
+            .then(function (response) {
+              that.fnClickSearchList(that.sSelectTab)
+            })
+            .catch(function (error) {
+              location.href = '../login/index.html'
             });
         },
         fnClickSearchList(data) {
@@ -233,6 +292,38 @@
             }, 1000);
           });
         },
+        fnInitSearchOption(){
+          $(document).on('click','.create-setteings', function () {
+              var buttons1 = [
+                {
+                  text: '搜索时间',
+                  label: true
+                },
+                {
+                  text: '一天内'
+                },
+                {
+                  text: '三天内'
+                },
+                {
+                  text: '一周内'
+                },
+                {
+                  text: '一月内'
+                },
+                {
+                  text: '三月内'
+                }
+              ];
+              var buttons2 = [
+                {
+                  text: '取 消'
+                }
+              ];
+              var groups = [buttons1, buttons2];
+              $.actions(groups);
+          });
+        }
       },
       mounted() {
         var token = localStorage.getItem('sToken');
@@ -240,7 +331,8 @@
           location.href = './page/login/index.html';
         }
         this.fnClickSearchList(1);
-        this.fnGetNotReadMessage()
+        this.fnGetNotReadMessage();
+        this.fnInitSearchOption()
       },
     });
   </script>

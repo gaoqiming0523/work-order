@@ -15,15 +15,25 @@
     <div class="page" id="app">
       <!-- 标题栏 -->
       <header class="bar bar-nav theme-dark">
-        <div class="bar bar-header-secondary">
-          <div class="searchbar">
-            <a class="searchbar-cancel">取消</a>
+        <div class="bar bar-header-secondary" v-if="isSearch">
+          <div class="search-option" style="width: 25%;display: inline-block;vertical-align: top;height: 44px">
+            <select style="display: inline-block;width: 100%;margin-top: 10px">
+              <option value="工单编号" selected>工单编号</option>
+              <option value="故障原因">故障原因</option>
+              <option value="未知">未知</option>
+            </select>
+          </div>
+          <div class="searchbar" style="width:55%;margin-left:5%; display: inline-block;vertical-align: top;">
+           
             <div class="search-input">
               <label class="icon icon-search" for="search"></label>
               <input type="search" id="search" placeholder="输入工单..." />
             </div>
           </div>
+          <a class="searchbar-cancel" style="width: 10%; margin-top: 10px;display: inline-block;margin-left: 5%;color:white" @click="fnClickCancel">取消</a>
         </div>
+        <h1 class="title" v-if="!isSearch">个人中心</h1>
+        <span class="icon icon-search" style="float: right;" v-if="!isSearch" @click="fnClickIsSearch"></span>
       </header>
 
       <!-- 工具栏 -->
@@ -49,6 +59,11 @@
 
       <!-- 这里是页面内容区 -->
       <div class="content">
+        <div class="select-option">
+          <div @click="fnClickEdit(1)" :style="selectType.indexOf(1) !== -1 ? 'color:white;background:rgba(24, 187, 156, 1) ' : '' ">待接工单</div>
+          <div @click="fnClickEdit(2)" :style="selectType.indexOf(2) !== -1 ? 'color:white;background:rgba(24, 187, 156, 1) ' : '' ">待办工单</div>
+          <div @click="fnClickEdit(5)" :style="selectType.indexOf(5) !== -1 ? 'color:white;background:rgba(24, 187, 156, 1) ' : '' ">完成工单</div>
+        </div>
         <!-- 头像及工号 -->
         <div id="allmap"></div>
 
@@ -66,7 +81,7 @@
             <p class="work-order-map">{{ selectItem.address }}</p>
           </div>
 
-          <div class="work-order-button">接单</div>
+          <div class="work-order-button"  @click.stop="setAccept(selectItem.id)">接单</div>
         </div>
       </div>
     </div>
@@ -84,11 +99,19 @@
       el: '#app',
       data() {
         return {
+          isSearch: false,
           notReadNum: '',
-          selectItem: null
+          selectItem: null,
+          selectType: [1]
         };
       },
       methods: {
+        fnClickIsSearch(){
+          this.isSearch = true
+        },
+        fnClickCancel(){
+          this.isSearch = false
+        },
         fnClickJumpToDetail(id) {
           location.href = '../details/index.html?id=' + id;
         },
@@ -106,6 +129,22 @@
               location.href = '../login/index.html';
             });
         },
+        // 接单
+        setAccept(id) {
+          var token = localStorage.getItem('sToken')
+          var that = this
+          axios({
+            method: 'post',
+            url: 'http://121.42.233.49:7888/job/accept/' + id,
+            headers: { token: token },
+          })
+            .then(function (response) {
+              that.fnClickSearchList(that.sSelectTab)
+            })
+            .catch(function (error) {
+              location.href = '../login/index.html';
+            });
+        },
         getPoint() {
           var token = localStorage.getItem('sToken');
           axios({
@@ -113,7 +152,9 @@
             url: 'http://121.42.233.49:7888/job/map',
             headers: { token: token },
             params: {
-              stateQ: 1,
+              stateQ1: this.selectType.indexOf(1) !== -1 ? 1 : 0,
+              stateQ2: this.selectType.indexOf(2) !== -1 ? 1 : 0,
+              stateQ3: this.selectType.indexOf(5) !== -1 ? 1 : 0
             },
           })
             .then((response) => {
@@ -121,8 +162,18 @@
               this.getMap();
             })
             .catch(function (error) {
-              // location.href = '../login/index.html'
+              location.href = '../login/index.html'
             });
+        },
+        fnClickEdit(type){
+          const nIndex = this.selectType.indexOf(type)
+          if(nIndex === -1){
+            this.selectType.push(type)
+          }else {
+            this.selectType.splice(nIndex, 1)
+          }
+          this.selectItem = null
+          this.getPoint()
         },
         getMap() {
           var that = this
@@ -165,10 +216,26 @@
             addMarker(point, this.aList[i]);
           }
         },
+        fnInitPicker(){
+        $("#picker").picker({
+          toolbarTemplate: '<header class="bar bar-nav">\
+          <button class="button button-link pull-left">按钮</button>\
+          <button class="button button-link pull-right close-picker">确定</button>\
+          <h1 class="title">标题</h1>\
+          </header>',
+          cols: [
+            {
+              textAlign: 'center',
+              values: ['iPhone 4', 'iPhone 4S', 'iPhone 5', 'iPhone 5S', 'iPhone 6', 'iPhone 6 Plus', 'iPad 2', 'iPad Retina', 'iPad Air', 'iPad mini', 'iPad mini 2', 'iPad mini 3']
+            }
+          ]
+        });
+        }
       },
       created() {
         this.getPoint();
         this.fnGetNotReadMessage();
+        this.fnInitPicker()
       },
     });
   </script>

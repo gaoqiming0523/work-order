@@ -31,3 +31,40 @@
   border: 0 !important;
   padding: 4px !important;
 }
+.select-option {
+  height: 42px;
+  background: white;
+  padding-left: 10px;
+  box-sizing: border-box;
+}
+.select-option div {
+  display: inline-block;
+  padding: 6px;
+  color: rgba(24, 187, 156, 1);
+  border: 1px solid rgba(24, 187, 156, 1);
+  font-size: 12px;
+  text-align: center;
+  line-height: 14px;
+  margin-top: 8px;
+  border-radius: 8px;
+  margin-right: 10px;
+}
+button, input, optgroup, select, textarea {
+  color: rgba(254, 255, 255, 1) !important;
+  background: rgba(255, 255, 255, 0.1) !important;
+  font-size: 12px;
+}
+select {
+  color: rgba(254, 255, 255, 1) !important;
+  background: rgba(255, 255, 255, 0.1) !important;
+  font-size: 12px !important;
+  height: 30px;
+  margin-top: 8px !important;
+  border-radius: 8px !important;
+}
+.theme-dark .searchbar {
+  background: #4B4B4B !important
+}
+.bar.theme-dark, .theme-dark .bar {
+  background: #4B4B4B !important
+}

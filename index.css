@@ -76,6 +76,23 @@ p {
   position: relative;
   z-index: 9;
 }
+.bar-header-secondary {
+  top: 0 !important
+}
+.theme-dark .searchbar {
+  background: #4B4B4B !important
+}
+.bar.theme-dark, .theme-dark .bar {
+  background: #4B4B4B !important
+}
+select {
+  color: rgba(254, 255, 255, 1) !important;
+  background: rgba(255, 255, 255, 0.1) !important;
+  font-size: 12px !important;
+  height: 30px;
+  margin-top: 8px !important;
+  border-radius: 8px !important;
+}
 .now-time {
   position: absolute;
   height: 14px;
