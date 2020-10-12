@@ -81,7 +81,8 @@
             <p class="work-order-map">{{ selectItem.address }}</p>
           </div>
 
-          <div class="work-order-button"  @click.stop="setAccept(selectItem.id)">接单</div>
+          <div class="work-order-button" v-if="selectItem.state === 1"  @click.stop="setAccept(selectItem.id)">接单</div>
+          <div class="work-order-button" v-if="selectItem.state === 2"  @click.stop="setArrive(selectItem.id)">到达现场</div>
         </div>
       </div>
     </div>
@@ -139,10 +140,27 @@
             headers: { token: token },
           })
             .then(function (response) {
-              that.fnClickSearchList(that.sSelectTab)
+              that.getPoint()
             })
             .catch(function (error) {
               location.href = '../login/index.html';
+            });
+        },
+        // 到达现场/确认
+        setArrive(id) {
+          var token = localStorage.getItem('sToken')
+          var that = this
+          axios({
+            method: 'post',
+            url: 'http://121.42.233.49:7888/job/arrive/' + id,
+            headers: { token: token },
+          })
+            .then(function (response) {
+              this.selectItem = null
+              that.getPoint()
+            })
+            .catch(function (error) {
+              location.href = '../login/index.html'
             });
         },
         getPoint() {

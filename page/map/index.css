@@ -68,3 +68,6 @@ select {
 .bar.theme-dark, .theme-dark .bar {
   background: #4B4B4B !important
 }
+.work-order-content {
+  padding-bottom: 24px !important;
+}
