@@ -17,20 +17,21 @@
       <header class="bar bar-nav theme-dark">
         <div class="bar bar-header-secondary" v-if="isSearch">
           <div class="search-option" style="width: 25%;display: inline-block;vertical-align: top;height: 44px">
-            <select style="display: inline-block;width: 100%;margin-top: 10px">
-              <option value="工单编号" selected>工单编号</option>
-              <option value="故障原因">故障原因</option>
-              <option value="未知">未知</option>
+            <select v-model="searchOption" style="display: inline-block;width: 100%;margin-top: 10px">
+              <option value="1" selected>工单编号</option>
+              <option value="2">故障原因</option>
+              <option value="3">位置</option>
             </select>
           </div>
           <div class="searchbar" style="width:55%;margin-left:5%; display: inline-block;vertical-align: top;">
            
             <div class="search-input">
               <label class="icon icon-search" for="search"></label>
-              <input type="search" id="search" placeholder="输入工单..." />
+              <input type="search" id="search" placeholder="输入工单..." v-model="keyword" />
             </div>
           </div>
-          <a class="searchbar-cancel" style="width: 10%; margin-top: 10px;display: inline-block;margin-left: 5%;color:white" @click="fnClickCancel">取消</a>
+          <a class="searchbar-cancel" style="width: 10%; margin-top: 10px;display: inline-block;margin-left: 5%;color:white" v-if="keyword !== ''" @click="getPoint">搜索</a>
+          <a class="searchbar-cancel" style="width: 10%; margin-top: 10px;display: inline-block;margin-left: 5%;color:white" v-else @click="fnClickCancel">取消</a>
         </div>
         <h1 class="title" v-if="!isSearch">个人中心</h1>
         <span class="icon icon-search" style="float: right;" v-if="!isSearch" @click="fnClickIsSearch"></span>
@@ -103,10 +104,13 @@
           isSearch: false,
           notReadNum: '',
           selectItem: null,
-          selectType: [1]
+          selectType: [1],
+          searchOption: '1',
+          keyword: ''
         };
       },
       methods: {
+       
         fnClickIsSearch(){
           this.isSearch = true
         },
@@ -172,7 +176,10 @@
             params: {
               stateQ1: this.selectType.indexOf(1) !== -1 ? 1 : 0,
               stateQ2: this.selectType.indexOf(2) !== -1 ? 1 : 0,
-              stateQ3: this.selectType.indexOf(5) !== -1 ? 1 : 0
+              stateQ3: this.selectType.indexOf(5) !== -1 ? 1 : 0,
+              address: +this.searchOption === 3 ? this.keyword : '',
+              faultCause: +this.searchOption === 2 ? this.keyword : '',
+              id: +this.searchOption === 1 ? this.keyword : ''
             },
           })
             .then((response) => {
@@ -180,7 +187,7 @@
               this.getMap();
             })
             .catch(function (error) {
-              location.href = '../login/index.html'
+              // location.href = '../login/index.html'
             });
         },
         fnClickEdit(type){

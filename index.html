@@ -13,27 +13,35 @@
     <div class="page" id="app">
       <!-- 标题栏 -->
       <header class="bar bar-nav theme-dark">
-          <div class="bar bar-header-secondary" v-if="isSearch">
-            <div class="search-option" style="width: 25%;display: inline-block;vertical-align: top;height: 44px">
-              <select style="display: inline-block;width: 100%;margin-top: 10px">
-                <option value="工单编号" selected>工单编号</option>
-                <option value="故障原因">故障原因</option>
-                <option value="未知">未知</option>
-              </select>
-            </div>
-            <div class="searchbar" style="width:55%;margin-left:5%; display: inline-block;vertical-align: top;">
-             
-              <div class="search-input">
-                <label class="icon icon-search" for="search"></label>
-                <input type="search" id="search" placeholder="输入工单..." />
-              </div>
-            </div>
-            <a class="searchbar-cancel" style="width: 10%; margin-top: 10px;display: inline-block;margin-left: 5%;color:white" @click="fnClickCancel">取消</a>
+        <div class="bar bar-header-secondary" v-if="isSearch">
+          <div class="search-option" style="width: 25%; display: inline-block; vertical-align: top; height: 44px">
+            <select v-model="searchOption" style="display: inline-block; width: 100%; margin-top: 10px">
+              <option value="1" selected>工单编号</option>
+              <option value="2">故障原因</option>
+              <option value="3">位置</option>
+            </select>
           </div>
-          <span class="icon icon-edit pull-left create-setteings" v-if="!isSearch"></span>
-          <span class="icon icon-search pull-right" v-if="!isSearch" @click="fnClickIsSearch"></span>
-          <h1 class="title" v-if="!isSearch">工单</h1>
-        </header>
+          <div class="searchbar" style="width: 55%; margin-left: 5%; display: inline-block; vertical-align: top">
+            <div class="search-input">
+              <label class="icon icon-search" for="search"></label>
+              <input type="search" id="search" placeholder="输入工单..." v-model="keyword" />
+            </div>
+          </div>
+          <a
+            class="searchbar-cancel"
+            style="width: 10%; margin-top: 10px; display: inline-block; margin-left: 5%; color: white"
+            v-if="keyword !== '' "
+            @click="fnClickSearchList"
+            >搜索</a
+          >
+          <a class="searchbar-cancel" style="width: 10%; margin-top: 10px; display: inline-block; margin-left: 5%; color: white" v-else @click="fnClickCancel"
+            >取消</a
+          >
+        </div>
+        <span class="icon icon-edit pull-left create-setteings" v-if="!isSearch"></span>
+        <span class="icon icon-search pull-right" v-if="!isSearch" @click="fnClickIsSearch"></span>
+        <h1 class="title" v-if="!isSearch">工单</h1>
+      </header>
 
       <!-- 工具栏 -->
       <nav class="bar bar-tab">
@@ -82,13 +90,17 @@
                 </div>
                 <div class="work-order-time-canvas" v-if="item.state === 1 || item.state === 2">
                   <div>距离到场剩余时间</div>
-                  <div class="old-time" :style="item.isEnd ? 'background: RGBA(249, 98, 98, 0.3)': item.hours === 0 && item.minutes < 30 ? 'background:rgba(251, 159, 69, 0.3)': 'text-align: center;line-height:16px;font-size:12px'">
+                  <div
+                    class="old-time"
+                    :style="item.isEnd ? 'background: RGBA(249, 98, 98, 0.3)': item.hours === 0 && item.minutes < 30 ? 'background:rgba(251, 159, 69, 0.3)': 'text-align: center;line-height:16px;font-size:12px'"
+                  >
                     <div
                       class="now-time"
                       :style="item.isEnd ? 'background: RGBA(249, 98, 98, 1);color: white;font-size: 12px;width: 100%;text-align: center;line-height: 14px': item.hours === 0 && item.minutes < 30 ? 'width: 50%;background:rgba(251, 159, 69, 1)' : ''"
-                    >
+                    ></div>
+                    <div style="position: absolute; z-index: 999; width: 100%; color: black; text-align: center; line-height: 14px">
+                      {{item.isEnd ? '已超时' : item.sCountdownShow }}
                     </div>
-                    <div style="position: absolute;z-index: 999;width: 100%;color:black;text-align: center;line-height: 14px">{{item.isEnd ? '已超时' : item.sCountdownShow  }}</div>
                   </div>
                 </div>
                 <div class="work-order-button" @click.stop="setAccept(item.id)">接单</div>
@@ -110,13 +122,17 @@
                 </div>
                 <div class="work-order-time-canvas" v-if="item.state === 1 || item.state === 2">
                   <div>距离到场剩余时间</div>
-                  <div class="old-time" :style="item.isEnd ? 'background: RGBA(249, 98, 98, 0.3)': item.hours === 0 && item.minutes < 30 ? 'background:rgba(251, 159, 69, 0.3)': 'text-align: center;line-height:16px;font-size:12px'">
+                  <div
+                    class="old-time"
+                    :style="item.isEnd ? 'background: RGBA(249, 98, 98, 0.3)': item.hours === 0 && item.minutes < 30 ? 'background:rgba(251, 159, 69, 0.3)': 'text-align: center;line-height:16px;font-size:12px'"
+                  >
                     <div
                       class="now-time"
                       :style="item.isEnd ? 'background: RGBA(249, 98, 98, 1);color: white;font-size: 12px;width: 100%;text-align: center;line-height: 14px': item.hours === 0 && item.minutes < 30 ? 'width: 50%;background:rgba(251, 159, 69, 1)' : ''"
-                    >
+                    ></div>
+                    <div style="position: absolute; z-index: 999; width: 100%; color: black; text-align: center; line-height: 14px">
+                      {{item.isEnd ? '已超时' : item.sCountdownShow }}
                     </div>
-                    <div style="position: absolute;z-index: 999;width: 100%;color:black;text-align: center;line-height: 14px">{{item.isEnd ? '已超时' : item.sCountdownShow  }}</div>
                   </div>
                 </div>
                 <div class="work-order-button" @click.stop="setArrive(item.state, item.id)" :style="item.state === 3 ? 'background: #7C7D7D' : '' ">
@@ -163,31 +179,35 @@
           account: '',
           sPassword: '',
           aList: [],
-          sSelectTab: '',
+          sSelectTab: '1',
           oInterval: [],
           notReadNum: '',
-          isSearch: false
+          isSearch: false,
+          keyword: '',
+          day: '',
+          searchOption: '1',
         };
       },
       methods: {
-        fnClickIsSearch(){
-          this.isSearch = true
+        fnClickIsSearch() {
+          this.isSearch = true;
         },
-        fnClickCancel(){
-          this.isSearch = false
+        fnClickCancel() {
+          this.keyword = ''
+          this.isSearch = false;
         },
         fnClickJumpToDetail(id) {
           location.href = './page/details/index.html?id=' + id;
         },
         fnGetNotReadMessage() {
-          var token = localStorage.getItem('sToken')
+          var token = localStorage.getItem('sToken');
           axios({
             method: 'get',
             url: 'http://121.42.233.49:7888/msg/not-read',
-            headers: { token: token }
+            headers: { token: token },
           })
             .then((response) => {
-              this.notReadNum = response.data.data
+              this.notReadNum = response.data.data;
             })
             .catch(function (error) {
               location.href = './page/login/index.html';
@@ -195,39 +215,41 @@
         },
         // 接单
         setAccept(id) {
-          var that = this
-          var token = localStorage.getItem('sToken')
+          var that = this;
+          var token = localStorage.getItem('sToken');
           axios({
             method: 'post',
             url: 'http://121.42.233.49:7888/job/accept/' + id,
             headers: { token: token },
           })
             .then(function (response) {
-              that.fnClickSearchList(that.sSelectTab)
+              that.fnClickSearchList(that.sSelectTab);
             })
             .catch(function (error) {
               location.href = './page/login/index.html';
             });
         },
         // 到达现场/确认
-        setArrive(type,id) {
-          if(type !== 2) return
-          var token = localStorage.getItem('sToken')
-          var that = this
+        setArrive(type, id) {
+          if (type !== 2) return;
+          var token = localStorage.getItem('sToken');
+          var that = this;
           axios({
             method: 'post',
             url: 'http://121.42.233.49:7888/job/arrive/' + id,
             headers: { token: token },
           })
             .then(function (response) {
-              that.fnClickSearchList(that.sSelectTab)
+              that.fnClickSearchList(that.sSelectTab);
             })
             .catch(function (error) {
-              location.href = '../login/index.html'
+              location.href = '../login/index.html';
             });
         },
-        fnClickSearchList(data) {
-          this.sSelectTab = data;
+        fnClickSearchList(data, searchDay) {
+          if (!isNaN(Number(data))) {
+            this.sSelectTab = data;
+          }
           var token = localStorage.getItem('sToken');
           var that = this;
           axios({
@@ -237,7 +259,11 @@
             params: {
               current: 1,
               size: 10000,
-              stateQ: data,
+              stateQ: this.sSelectTab,
+              day: searchDay,
+              address: +this.searchOption === 3 ? this.keyword : '',
+              faultCause: +this.searchOption === 2 ? this.keyword : '',
+              id: +this.searchOption === 1 ? this.keyword : '',
             },
           })
             .then(function (response) {
@@ -265,18 +291,18 @@
               that.fnBsnCutDown();
             })
             .catch(function (error) {
-              location.href = './page/login/index.html';
+              // location.href = './page/login/index.html';
             });
         },
         fnBsnCutDown() {
           this.aList.forEach((item) => {
-            if(item.isEnd) return
+            if (item.isEnd) return;
             this.oInterval[item.id] = setInterval(() => {
               const newDate = new Date(item.createTime).getTime();
               const nowTime = new Date().getTime();
               if ((item.addressType === 1 ? 45 : item.addressType === 2 ? 90 : 120) - (nowTime - newDate) / 1000 / 60 < 0) {
                 item.isEnd = true;
-                return
+                return;
               }
               let oCountDown = window.myCountdown(
                 new Date().getTime(),
@@ -292,38 +318,54 @@
             }, 1000);
           });
         },
-        fnInitSearchOption(){
-          $(document).on('click','.create-setteings', function () {
-              var buttons1 = [
-                {
-                  text: '搜索时间',
-                  label: true
+        fnInitSearchOption() {
+          var that = this;
+          $(document).on('click', '.create-setteings', function () {
+            var buttons1 = [
+              {
+                text: '搜索时间',
+                label: true,
+              },
+              {
+                text: '一天内',
+                onClick: function () {
+                  that.fnClickSearchList(that.sSelectTab, 1);
                 },
-                {
-                  text: '一天内'
+              },
+              {
+                text: '三天内',
+                onClick: function () {
+                  that.fnClickSearchList(that.sSelectTab, 2);
                 },
-                {
-                  text: '三天内'
+              },
+              {
+                text: '一周内',
+                onClick: function () {
+                  that.fnClickSearchList(that.sSelectTab, 3);
                 },
-                {
-                  text: '一周内'
+              },
+              {
+                text: '一月内',
+                onClick: function () {
+                  that.fnClickSearchList(that.sSelectTab, 4);
                 },
-                {
-                  text: '一月内'
+              },
+              {
+                text: '三月内',
+                onClick: function () {
+                  that.fnClickSearchList(that.sSelectTab, 5);
                 },
-                {
-                  text: '三月内'
-                }
-              ];
-              var buttons2 = [
-                {
-                  text: '取 消'
-                }
-              ];
-              var groups = [buttons1, buttons2];
-              $.actions(groups);
+              },
+            ];
+            var buttons2 = [
+              {
+                text: '取 消',
+              },
+            ];
+            var groups = [buttons1, buttons2];
+            $.actions(groups);
           });
-        }
+        },
       },
       mounted() {
         var token = localStorage.getItem('sToken');
@@ -332,7 +374,7 @@
         }
         this.fnClickSearchList(1);
         this.fnGetNotReadMessage();
-        this.fnInitSearchOption()
+        this.fnInitSearchOption();
       },
     });
   </script>
